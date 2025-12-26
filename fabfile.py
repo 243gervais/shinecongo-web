@@ -103,7 +103,8 @@ def _ensure_postgres(c):
         END $$;
         """
     ).strip()
-    cmd = f"sudo -u postgres psql -v ON_ERROR_STOP=1 <<SQL\n{sql}\nSQL"
+    cmd = f"sudo -u postgres psql -v ON_ERROR_STOP=1 <<'SQL'\n{sql}\nSQL"
+
     _run(c, cmd, sudo=True)
 
 
