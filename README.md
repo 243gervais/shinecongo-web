@@ -126,6 +126,76 @@ python manage.py runserver
 Accédez à `http://localhost:8000` pour voir le site.  
 Admin: `http://localhost:8000/admin`
 
+## Deployment
+
+One-command deploy from your laptop with Fabric:
+
+```bash
+pip install fabric
+fab -H ubuntu@<ip> bootstrap
+fab -H ubuntu@<ip> deploy
+```
+
+Notes:
+- Edit `fabfile.py` to set `REPO_URL`, `BRANCH`, `DOMAIN`, and `CERTBOT_EMAIL`.
+- `bootstrap` creates `/var/www/shinecongo/.env` with placeholders; fill in real values before production traffic.
+
+Sample systemd service (/etc/systemd/system/gunicorn-shinecongo.service):
+
+```ini
+[Unit]
+Description=gunicorn-shinecongo
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/var/www/shinecongo
+EnvironmentFile=/var/www/shinecongo/.env
+ExecStartPre=/bin/rm -f /run/gunicorn-shinecongo.sock
+ExecStart=/var/www/shinecongo/venv/bin/gunicorn --access-logfile - --error-logfile - --workers 3 --bind unix:/run/gunicorn-shinecongo.sock config.wsgi:application
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Sample Nginx config (/etc/nginx/sites-available/shinecongo.com):
+
+```nginx
+server {
+    server_name shinecongo.com www.shinecongo.com;
+
+    location /static/ {
+        alias /var/www/shinecongo/staticfiles/;
+        access_log off;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/run/gunicorn-shinecongo.sock;
+        proxy_read_timeout 300;
+        proxy_connect_timeout 300;
+    }
+
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "geolocation=(), microphone=(), camera=()" always;
+    client_max_body_size 20M;
+}
+```
+
+Troubleshooting commands:
+
+```bash
+sudo systemctl status gunicorn-shinecongo --no-pager
+sudo journalctl -u gunicorn-shinecongo -f
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
 ## 🚢 Déploiement sur AWS Lightsail (Production)
 
 ### Prérequis Serveur
