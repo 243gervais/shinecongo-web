@@ -86,26 +86,29 @@ def _ensure_env_file(c):
 
 
 def _ensure_postgres(c):
-    sql = textwrap.dedent(
-        f"""\
-        DO $$
-        BEGIN
-            IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '{DB_USER}') THEN
-                CREATE ROLE {DB_USER} LOGIN PASSWORD '{DB_PASSWORD_PLACEHOLDER}';
-            END IF;
-        END $$;
+    # 1) Create role if missing (safe to run repeatedly)
+    _run(
+        c,
+        (
+            f"sudo -u postgres psql -tAc "
+            f"\"SELECT 1 FROM pg_roles WHERE rolname='{DB_USER}'\" | grep -q 1 "
+            f"|| sudo -u postgres psql -c "
+            f"\"CREATE ROLE {DB_USER} LOGIN PASSWORD '{DB_PASSWORD_PLACEHOLDER}';\""
+        ),
+        sudo=True,
+    )
 
-        DO $$
-        BEGIN
-            IF NOT EXISTS (SELECT FROM pg_database WHERE datname = '{DB_NAME}') THEN
-                CREATE DATABASE {DB_NAME} OWNER {DB_USER};
-            END IF;
-        END $$;
-        """
-    ).strip()
-    cmd = f"sudo -u postgres psql -v ON_ERROR_STOP=1 <<'SQL'\n{sql}\nSQL"
+    # 2) Create database if missing (must run outside DO blocks)
+    _run(
+        c,
+        (
+            f"sudo -u postgres psql -tAc "
+            f"\"SELECT 1 FROM pg_database WHERE datname='{DB_NAME}'\" | grep -q 1 "
+            f"|| sudo -u postgres createdb -O {DB_USER} {DB_NAME}"
+        ),
+        sudo=True,
+    )
 
-    _run(c, cmd, sudo=True)
 
 
 def _find_manage_py(c):
