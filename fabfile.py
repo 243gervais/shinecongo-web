@@ -120,21 +120,38 @@ def _find_manage_py(c):
 
 
 def _get_wsgi_module(c, manage_py):
+    # manage_py is like "./manage.py" or "./src/manage.py"
     cmd = (
-        f"cd {PROJECT_DIR} && {PYTHON_BIN} - <<PY\n"
-        "import re, pathlib\n"
-        f"text = pathlib.Path('{manage_py}').read_text()\n"
-        "m = re.search(r\"DJANGO_SETTINGS_MODULE[^'\"]*['\"]([^'\"]+)['\"]\", text)\n"
-        "print(m.group(1) if m else '')\n"
+        f"cd {PROJECT_DIR} && {PYTHON_BIN} - <<'PY'\n"
+        "import pathlib\n"
+        f"p = pathlib.Path('{manage_py}')\n"
+        "text = p.read_text()\n"
+        "needle = \"DJANGO_SETTINGS_MODULE\"\n"
+        "val = \"\"\n"
+        "for line in text.splitlines():\n"
+        "    if needle in line and \"=\" in line:\n"
+        "        # line example: os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')\n"
+        "        # grab the last quoted string on the line\n"
+        "        parts = line.split(\"'\")\n"
+        "        if len(parts) >= 2:\n"
+        "            val = parts[-2]\n"
+        "        else:\n"
+        "            parts = line.split('\"')\n"
+        "            if len(parts) >= 2:\n"
+        "                val = parts[-2]\n"
+        "        break\n"
+        "print(val)\n"
         "PY"
     )
     result = _run(c, cmd)
     settings_module = result.stdout.strip()
     if not settings_module:
         raise Exit("Could not detect DJANGO_SETTINGS_MODULE in manage.py")
+    # Convert config.settings -> config.wsgi
     if settings_module.endswith(".settings"):
-        return settings_module.replace(".settings", ".wsgi")
-    return f"{settings_module}.wsgi"
+        return settings_module[:-len(".settings")] + ".wsgi"
+    return settings_module + ".wsgi"
+
 
 
 def _manage(c, manage_py, args):
