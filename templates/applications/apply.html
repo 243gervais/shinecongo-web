@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Postuler - Shine Congo Carrières{% endblock %}
+
+{% block content %}
+
+<section class="bg-gradient-to-r from-sc-orange to-sc-orange-light text-white py-20">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl font-bold mb-6">Postuler chez Shine Congo</h1>
+        <p class="text-xl max-w-3xl mx-auto">
+            Remplissez le formulaire ci-dessous et envoyez-nous votre CV
+        </p>
+    </div>
+</section>
+
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+                <form method="post" enctype="multipart/form-data" class="space-y-6">
+                    {% csrf_token %}
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                Nom Complet <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.full_name }}
+                            {% if form.full_name.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.full_name.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                Email <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.email.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                Téléphone <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.phone }}
+                            {% if form.phone.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.phone.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                Ville <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.city }}
+                            {% if form.city.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.city.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-sc-navy mb-2">
+                            Poste Souhaité <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.position_applied }}
+                        {% if form.position_applied.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.position_applied.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                Années d'Expérience <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.years_experience }}
+                            {% if form.years_experience.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.years_experience.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                Date de Disponibilité
+                            </label>
+                            {{ form.availability_date }}
+                            {% if form.availability_date.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.availability_date.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-sc-navy mb-2">
+                            Lettre de Motivation / Message
+                        </label>
+                        {{ form.message }}
+                        {% if form.message.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.message.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-sc-navy mb-2">
+                            Votre CV (PDF, DOC, DOCX - Max 5MB) <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.cv_file }}
+                        <p class="text-sm text-gray-500 mt-2">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            Formats acceptés: PDF, DOC, DOCX. Taille maximale: 5MB
+                        </p>
+                        {% if form.cv_file.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.cv_file.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="bg-sc-cyan/10 border-l-4 border-sc-cyan p-4 rounded">
+                        <p class="text-sm text-gray-700">
+                            <i class="fas fa-shield-alt text-sc-cyan mr-2"></i>
+                            Vos données personnelles seront traitées de manière confidentielle conformément à notre
+                            <a href="{% url 'core:privacy' %}" class="text-sc-cyan underline">politique de
+                                confidentialité</a>.
+                        </p>
+                    </div>
+
+                    <div class="pt-6">
+                        <button type="submit"
+                            class="w-full btn-primary text-white px-8 py-4 rounded-full font-semibold text-lg">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Envoyer ma Candidature
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

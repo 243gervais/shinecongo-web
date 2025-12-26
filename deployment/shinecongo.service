@@ -1,0 +1,19 @@
+[Unit]
+Description=Shine Congo Gunicorn Daemon
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/shinecongo
+Environment="PATH=/var/www/shinecongo/venv/bin"
+ExecStart=/var/www/shinecongo/venv/bin/gunicorn \
+          --workers 3 \
+          --bind unix:/var/www/shinecongo/gunicorn.sock \
+          --timeout 120 \
+          --access-logfile /var/www/shinecongo/logs/gunicorn-access.log \
+          --error-logfile /var/www/shinecongo/logs/gunicorn-error.log \
+          config.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

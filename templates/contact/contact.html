@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact - Shine Congo{% endblock %}
+
+{% block content %}
+
+<section class="bg-gradient-to-r from-sc-cyan to-sc-cyan-light text-white py-20">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl font-bold mb-6">Contactez-nous</h1>
+        <p class="text-xl max-w-3xl mx-auto">
+            Une question? Une suggestion? N'hésitez pas à nous écrire!
+        </p>
+    </div>
+</section>
+
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            <!-- Contact Form -->
+            <div>
+                <h2 class="text-3xl font-bold text-sc-navy mb-8">Envoyez-nous un message</h2>
+
+                <form method="post" class="space-y-6">
+                    {% csrf_token %}
+
+                    <div>
+                        <label class="block text-sm font-semibold text-sc-navy mb-2">
+                            Nom <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-sc-navy mb-2">
+                            Email <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.email.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-sc-navy mb-2">
+                            Téléphone (optionnel)
+                        </label>
+                        {{ form.phone }}
+                        {% if form.phone.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.phone.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-sc-navy mb-2">
+                            Sujet <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.subject }}
+                        {% if form.subject.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.subject.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-sc-navy mb-2">
+                            Message <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.message }}
+                        {% if form.message.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.message.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit"
+                        class="w-full btn-primary text-white px-8 py-4 rounded-full font-semibold text-lg">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Envoyer le Message
+                    </button>
+                </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div>
+                <h2 class="text-3xl font-bold text-sc-navy mb-8">Informations de Contact</h2>
+
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div
+                            class="w-14 h-14 bg-gradient-cyan rounded-full flex items-center justify-center mr-6 flex-shrink-0">
+                            <i class="fas fa-map-marker-alt text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-sc-navy mb-2">Adresse</h3>
+                            <p class="text-gray-600">
+                                Avenue XXX, Commune de XXX<br>
+                                Kinshasa, République Démocratique du Congo
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div
+                            class="w-14 h-14 bg-gradient-cyan rounded-full flex items-center justify-center mr-6 flex-shrink-0">
+                            <i class="fas fa-phone text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-sc-navy mb-2">Téléphone</h3>
+                            <p class="text-gray-600">
+                                +243 XXX XXX XXX<br>
+                                +243 XXX XXX XXX
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div
+                            class="w-14 h-14 bg-gradient-cyan rounded-full flex items-center justify-center mr-6 flex-shrink-0">
+                            <i class="fas fa-envelope text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-sc-navy mb-2">Email</h3>
+                            <p class="text-gray-600">
+                                contact@shinecongo.com<br>
+                                info@shinecongo.com
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div
+                            class="w-14 h-14 bg-gradient-cyan rounded-full flex items-center justify-center mr-6 flex-shrink-0">
+                            <i class="fas fa-clock text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-sc-navy mb-2">Horaires</h3>
+                            <p class="text-gray-600">
+                                Lundi - Samedi: 8h00 - 18h00<br>
+                                Dimanche: 9h00 - 15h00
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12">
+                    <h3 class="text-xl font-bold text-sc-navy mb-4">Suivez-nous</h3>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-12 h-12 bg-sc-cyan rounded-full flex items-center justify-center text-white hover:bg-sc-orange transition">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-sc-cyan rounded-full flex items-center justify-center text-white hover:bg-sc-orange transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-sc-cyan rounded-full flex items-center justify-center text-white hover:bg-sc-orange transition">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-sc-cyan rounded-full flex items-center justify-center text-white hover:bg-sc-orange transition">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Placeholder -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="bg-gray-300 rounded-3xl overflow-hidden" style="height: 400px;">
+                <div class="w-full h-full flex items-center justify-center text-gray-600">
+                    <div class="text-center">
+                        <i class="fas fa-map-marked-alt text-6xl mb-4"></i>
+                        <p class="text-xl">Carte Google Maps à intégrer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

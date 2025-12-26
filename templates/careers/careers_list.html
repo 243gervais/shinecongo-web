@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}Carrières - Shine Congo{% endblock %}
+
+{% block content %}
+
+<section class="bg-gradient-to-r from-sc-orange to-sc-orange-light text-white py-20">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">Carrières chez Shine Congo</h1>
+        <p class="text-xl max-w-3xl mx-auto">Construisez votre avenir avec nous. Rejoignez une équipe passionnée!</p>
+    </div>
+</section>
+
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-sc-cyan/10 rounded-3xl p-8 mb-12">
+                <h2 class="text-3xl font-bold text-sc-navy mb-4">Pourquoi travailler chez Shine Congo?</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-sc-cyan text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <strong>Formation continue</strong>
+                            <p class="text-gray-600">Développez vos compétences professionnelles</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-sc-cyan text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <strong>Salaire compétitif</strong>
+                            <p class="text-gray-600">Rémunération juste et avantages</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-sc-cyan text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <strong>Évolution de carrière</strong>
+                            <p class="text-gray-600">Possibilités de promotion interne</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-sc-cyan text-2xl mr-4 mt-1"></i>
+                        <div>
+                            <strong>Environnement dynamique</strong>
+                            <p class="text-gray-600">Équipe jeune et motivée</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="text-3xl font-bold text-sc-navy mb-8">Postes Disponibles</h2>
+
+            {% if roles %}
+            <div class="space-y-6">
+                {% for role in roles %}
+                <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover-lift">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-sc-navy mb-2">{{ role.title }}</h3>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="bg-sc-cyan/20 text-sc-cyan px-3 py-1 rounded-full text-sm font-semibold">
+                                    <i class="fas fa-briefcase mr-1"></i> {{ role.get_employment_type_display }}
+                                </span>
+                                <span
+                                    class="bg-sc-orange/20 text-sc-orange px-3 py-1 rounded-full text-sm font-semibold">
+                                    <i class="fas fa-map-marker-alt mr-1"></i> {{ role.location }}
+                                </span>
+                            </div>
+                        </div>
+                        <a href="{% url 'careers:detail' role.slug %}"
+                            class="btn-primary text-white px-6 py-3 rounded-full font-semibold mt-4 md:mt-0 inline-block text-center">
+                            Voir les détails
+                        </a>
+                    </div>
+                    <p class="text-gray-600 text-lg">{{ role.description|truncatewords:30 }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="bg-gray-50 rounded-2xl p-12 text-center">
+                <i class="fas fa-info-circle text-6xl text-gray-400 mb-4"></i>
+                <h3 class="text-2xl font-bold text-gray-700 mb-4">Aucun poste disponible pour le moment</h3>
+                <p class="text-gray-600 mb-6">
+                    Envoyez-nous quand même votre candidature spontanée! Nous gardons tous les CV intéressants dans
+                    notre base de données.
+                </p>
+                <a href="{% url 'applications:apply' %}"
+                    class="btn-primary text-white px-8 py-3 rounded-full font-semibold inline-block">
+                    Candidature Spontanée
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-4xl font-bold text-sc-navy mb-6">Prêt à nous rejoindre?</h2>
+        <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            Postulez dès maintenant et commencez votre carrière chez Shine Congo
+        </p>
+        <a href="{% url 'applications:apply' %}"
+            class="btn-secondary text-white px-10 py-4 rounded-full font-semibold text-lg inline-block">
+            <i class="fas fa-file-upload mr-2"></i>
+            Postuler Maintenant
+        </a>
+    </div>
+</section>
+
+{% endblock %}

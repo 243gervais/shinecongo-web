@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Conditions d'Utilisation - Shine Congo{% endblock %}
+
+{% block content %}
+
+<section class="bg-sc-navy text-white py-16">
+    <div class="container mx-auto px-4">
+        <h1 class="text-4xl font-bold">Conditions d'Utilisation</h1>
+        <p class="mt-4">Dernière mise à jour: {{ current_year|default:"2024" }}</p>
+    </div>
+</section>
+
+<section class="py-16">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <div class="prose prose-lg max-w-none">
+            <h2>1. Acceptation des Conditions</h2>
+            <p>En utilisant les services de Shine Congo, vous acceptez ces conditions d'utilisation dans leur
+                intégralité.</p>
+
+            <h2>2. Services</h2>
+            <p>Shine Congo propose des services de lavage et d'entretien automobile. Nous nous réservons le droit de
+                modifier ou d'interrompre nos services à tout moment.</p>
+
+            <h2>3. Tarifs et Paiement</h2>
+            <p>Les tarifs de nos services sont affichés sur place et peuvent être modifiés sans préavis. Le paiement est
+                dû au moment de la prestation du service.</p>
+
+            <h2>4. Responsabilité</h2>
+            <p>Bien que nous prenions toutes les précautions nécessaires, Shine Congo ne peut être tenu responsable des
+                dommages préexistants non signalés avant le service.</p>
+
+            <h2>5. Garantie</h2>
+            <p>Nous garantissons la qualité de nos services. En cas d'insatisfaction, contactez-nous dans les 24 heures
+                suivant le service.</p>
+
+            <h2>6. Propriété Intellectuelle</h2>
+            <p>Tous les contenus de ce site (logos, textes, images) sont la propriété de Shine Congo et protégés par les
+                lois sur la propriété intellectuelle.</p>
+
+            <h2>7. Modifications</h2>
+            <p>Nous nous réservons le droit de modifier ces conditions à tout moment. Les modifications entrent en
+                vigueur dès leur publication sur ce site.</p>
+
+            <h2>8. Contact</h2>
+            <p>Pour toute question, contactez-nous à: <a href="mailto:legal@shinecongo.com"
+                    class="text-sc-cyan">legal@shinecongo.com</a></p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

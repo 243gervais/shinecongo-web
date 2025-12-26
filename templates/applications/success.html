@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Candidature Envoyée - Shine Congo{% endblock %}
+
+{% block content %}
+
+<section class="py-20 min-h-screen flex items-center">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+            <div
+                class="w-32 h-32 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-8 animate-pulse">
+                <i class="fas fa-check text-6xl text-white"></i>
+            </div>
+
+            <h1 class="text-5xl font-bold text-sc-navy mb-6">Candidature Reçue!</h1>
+
+            <p class="text-xl text-gray-600 mb-8">
+                Merci pour votre candidature chez Shine Congo. Nous avons bien reçu votre CV et nous l'examinerons
+                attentivement.
+            </p>
+
+            <div class="bg-sc-cyan/10 rounded-2xl p-8 mb-8">
+                <h2 class="text-2xl font-bold text-sc-navy mb-4">Et maintenant?</h2>
+                <div class="space-y-4 text-left">
+                    <div class="flex items-start">
+                        <div
+                            class="w-8 h-8 bg-sc-cyan text-white rounded-full flex items-center justify-center mr-4 flex-shrink-0 mt-1">
+                            1
+                        </div>
+                        <div>
+                            <p class="text-gray-700">Notre équipe RH examinera votre candidature dans les prochains
+                                jours</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div
+                            class="w-8 h-8 bg-sc-cyan text-white rounded-full flex items-center justify-center mr-4 flex-shrink-0 mt-1">
+                            2
+                        </div>
+                        <div>
+                            <p class="text-gray-700">Si votre profil correspond, nous vous contacterons pour un
+                                entretien</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div
+                            class="w-8 h-8 bg-sc-cyan text-white rounded-full flex items-center justify-center mr-4 flex-shrink-0 mt-1">
+                            3
+                        </div>
+                        <div>
+                            <p class="text-gray-700">Assurez-vous de vérifier régulièrement votre email et téléphone</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="{% url 'core:home' %}"
+                    class="btn-primary text-white px-8 py-3 rounded-full font-semibold inline-block">
+                    <i class="fas fa-home mr-2"></i>
+                    Retour à l'accueil
+                </a>
+                <a href="{% url 'careers:list' %}"
+                    class="bg-gray-200 text-sc-navy px-8 py-3 rounded-full font-semibold hover:bg-gray-300 transition inline-block">
+                    <i class="fas fa-briefcase mr-2"></i>
+                    Voir d'autres postes
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

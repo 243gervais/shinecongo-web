@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ job.title }} - Shine Congo Carrières{% endblock %}
+
+{% block content %}
+
+<section class="bg-gradient-to-r from-sc-navy to-sc-cyan text-white py-20">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="mb-6">
+                <a href="{% url 'careers:list' %}" class="text-white/80 hover:text-white">
+                    <i class="fas fa-arrow-left mr-2"></i> Retour aux postes
+                </a>
+            </div>
+            <h1 class="text-5xl font-bold mb-6">{{ job.title }}</h1>
+            <div class="flex flex-wrap gap-4">
+                <span class="bg-white/20 px-4 py-2 rounded-full">
+                    <i class="fas fa-briefcase mr-2"></i> {{ job.get_employment_type_display }}
+                </span>
+                <span class="bg-white/20 px-4 py-2 rounded-full">
+                    <i class="fas fa-map-marker-alt mr-2"></i> {{ job.location }}
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="md:col-span-2">
+                    <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                        <h2 class="text-3xl font-bold text-sc-navy mb-6">Description du Poste</h2>
+                        <div class="prose prose-lg max-w-none text-gray-700">
+                            {{ job.description|linebreaks }}
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                        <h2 class="text-3xl font-bold text-sc-navy mb-6">Responsabilités</h2>
+                        <div class="prose prose-lg max-w-none text-gray-700">
+                            {{ job.responsibilities|linebreaks }}
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                        <h2 class="text-3xl font-bold text-sc-navy mb-6">Exigences</h2>
+                        <div class="prose prose-lg max-w-none text-gray-700">
+                            {{ job.requirements|linebreaks }}
+                        </div>
+                    </div>
+
+                    {% if job.benefits %}
+                    <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+                        <h2 class="text-3xl font-bold text-sc-navy mb-6">Avantages</h2>
+                        <div class="prose prose-lg max-w-none text-gray-700">
+                            {{ job.benefits|linebreaks }}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="md:col-span-1">
+                    <div class="bg-gradient-orange rounded-2xl p-8 text-white sticky top-24">
+                        <h3 class="text-2xl font-bold mb-6">Intéressé(e)?</h3>
+                        <p class="mb-6">
+                            Postulez dès maintenant pour ce poste et rejoignez l'équipe Shine Congo!
+                        </p>
+                        <a href="{% url 'applications:apply' %}?position={{ job.title }}"
+                            class="block bg-white text-sc-orange text-center px-6 py-4 rounded-full font-semibold hover:bg-sc-yellow hover:text-sc-navy transition mb-4">
+                            <i class="fas fa-file-upload mr-2"></i>
+                            Postuler pour ce poste
+                        </a>
+                        <a href="{% url 'contact:contact' %}"
+                            class="block bg-sc-navy text-white text-center px-6 py-3 rounded-full hover:bg-sc-cyan transition">
+                            <i class="fas fa-question-circle mr-2"></i>
+                            Poser une question
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

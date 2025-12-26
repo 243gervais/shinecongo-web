@@ -1,0 +1,510 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shine Congo - Lavage Auto Premium à Kinshasa | Votre voiture, notre fierté{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section
+    class="relative overflow-hidden bg-gradient-to-br from-sc-navy via-sc-cyan to-sc-navy min-h-[90vh] flex items-center">
+    <!-- Animated background elements -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-20 left-10 w-32 h-32 bg-sc-cyan rounded-full blur-3xl water-droplet"></div>
+        <div class="absolute bottom-40 right-20 w-40 h-40 bg-sc-orange rounded-full blur-3xl water-droplet"
+            style="animation-delay: 0.5s;"></div>
+        <div class="absolute top-1/2 left-1/3 w-24 h-24 bg-sc-yellow rounded-full blur-3xl water-droplet"
+            style="animation-delay: 1s;"></div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="text-white">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                    Shine Congo
+                    <span class="block text-sc-yellow mt-2">Votre voiture, notre fierté</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-4 text-gray-200 leading-relaxed">
+                    Service de lavage auto premium à Kinshasa
+                </p>
+                <p class="text-lg mb-8 text-gray-300">
+                    Rapide • Fiable • Professionnel • Qualité garantie
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#services"
+                        class="btn-primary text-white px-8 py-4 rounded-full font-semibold text-lg inline-block text-center">
+                        <i class="fas fa-car-wash mr-2"></i>
+                        Découvrir nos services
+                    </a>
+                    <a href="{% url 'applications:apply' %}"
+                        class="btn-secondary text-white px-8 py-4 rounded-full font-semibold text-lg inline-block text-center">
+                        <i class="fas fa-briefcase mr-2"></i>
+                        Rejoignez l'équipe
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/20">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-sc-yellow">500+</div>
+                        <div class="text-sm text-gray-300 mt-1">Clients satisfaits</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-sc-yellow">10+</div>
+                        <div class="text-sm text-gray-300 mt-1">Ans d'expérience</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-sc-yellow">100%</div>
+                        <div class="text-sm text-gray-300 mt-1">Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hidden md:block">
+                <div class="relative">
+                    <img src="{% static 'images/logo.png' %}" alt="Shine Congo"
+                        class="w-full h-auto drop-shadow-2xl animate-pulse">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <a href="#about-preview" class="text-white">
+            <i class="fas fa-chevron-down text-3xl opacity-75"></i>
+        </a>
+    </div>
+</section>
+
+<!-- Why Shine Congo -->
+<section id="about-preview" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-sc-navy mb-4">Pourquoi choisir Shine Congo?</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Nous combinons expertise locale et technologies modernes pour offrir le meilleur service de lavage auto
+                à Kinshasa
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-8">
+            <div class="bg-white p-8 rounded-2xl shadow-lg card-hover text-center">
+                <div class="w-20 h-20 bg-gradient-cyan rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-tint text-3xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-sc-navy mb-3">Technologie Avancée</h3>
+                <p class="text-gray-600">
+                    Équipements de pointe pour un lavage impeccable et sans rayures
+                </p>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-lg card-hover text-center">
+                <div class="w-20 h-20 bg-gradient-orange rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-clock text-3xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-sc-navy mb-3">Service Rapide</h3>
+                <p class="text-gray-600">
+                    Lavage complet en 30-45 minutes sans compromis sur la qualité
+                </p>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-lg card-hover text-center">
+                <div class="w-20 h-20 bg-gradient-cyan rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-award text-3xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-sc-navy mb-3">Qualité Garantie</h3>
+                <p class="text-gray-600">
+                    Satisfaction 100% garantie ou lavage gratuit
+                </p>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-lg card-hover text-center">
+                <div class="w-20 h-20 bg-gradient-orange rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-users text-3xl text-white"></i>
+                </div>
+                <h3 class="text-xl font-bold text-sc-navy mb-3">Équipe Professionnelle</h3>
+                <p class="text-gray-600">
+                    Personnel formé et passionné par l'excellence
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Overview -->
+<section id="services" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-sc-navy mb-4">Nos Services</h2>
+            <p class="text-xl text-gray-600">
+                Des solutions complètes pour tous vos besoins de lavage automobile
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Service 1 -->
+            <div class="bg-gradient-to-br from-white to-gray-50 border-2 border-sc-cyan/20 rounded-2xl p-8 hover-lift">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-2xl font-bold text-sc-navy">Lavage Basique</h3>
+                    <i class="fas fa-spray-can text-4xl text-sc-cyan"></i>
+                </div>
+                <p class="text-gray-600 mb-6">
+                    Extérieur + Intérieur + Vitres
+                </p>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-sc-cyan mt-1 mr-3"></i>
+                        <span class="text-gray-700">Lavage extérieur complet</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-sc-cyan mt-1 mr-3"></i>
+                        <span class="text-gray-700">Aspiration intérieure</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-sc-cyan mt-1 mr-3"></i>
+                        <span class="text-gray-700">Nettoyage des vitres</span>
+                    </li>
+                </ul>
+                <div class="text-3xl font-bold text-sc-orange mb-4">À partir de XXX FC</div>
+                <a href="{% url 'core:services' %}"
+                    class="block text-center bg-sc-navy text-white px-6 py-3 rounded-full hover:bg-sc-cyan transition font-semibold">
+                    En savoir plus
+                </a>
+            </div>
+
+            <!-- Service 2 -->
+            <div
+                class="bg-gradient-to-br from-sc-cyan to-sc-cyan-light rounded-2xl p-8 hover-lift text-white transform md:scale-105">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-2xl font-bold">Premium Wash</h3>
+                    <i class="fas fa-star text-4xl text-sc-yellow"></i>
+                </div>
+                <div class="bg-sc-yellow text-sc-navy px-3 py-1 rounded-full text-sm font-semibold inline-block mb-4">
+                    LE PLUS POPULAIRE
+                </div>
+                <p class="mb-6">
+                    Service complet avec protection
+                </p>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-sc-yellow mt-1 mr-3"></i>
+                        <span>Tout du lavage basique</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-sc-yellow mt-1 mr-3"></i>
+                        <span>Cirage et polissage</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-sc-yellow mt-1 mr-3"></i>
+                        <span>Traitement des pneus</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-sc-yellow mt-1 mr-3"></i>
+                        <span>Protection carrosserie</span>
+                    </li>
+                </ul>
+                <div class="text-3xl font-bold text-white mb-4">À partir de XXX FC</div>
+                <a href="{% url 'core:services' %}"
+                    class="block text-center bg-white text-sc-cyan px-6 py-3 rounded-full hover:bg-sc-yellow hover:text-sc-navy transition font-semibold">
+                    En savoir plus
+                </a>
+            </div>
+
+            <!-- Service 3 -->
+            <div
+                class="bg-gradient-to-br from-white to-gray-50 border-2 border-sc-orange/20 rounded-2xl p-8 hover-lift">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-2xl font-bold text-sc-navy">Detailing Complet</h3>
+                    <i class="fas fa-gem text-4xl text-sc-orange"></i>
+                </div>
+                <p class="text-gray-600 mb-6">
+                    Service professionnel haut de gamme
+                </p>
+                <ul class="space-y-3 mb-6">
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-sc-orange mt-1 mr-3"></i>
+                        <span class="text-gray-700">Tout du Premium Wash</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-sc-orange mt-1 mr-3"></i>
+                        <span class="text-gray-700">Nettoyage moteur</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-sc-orange mt-1 mr-3"></i>
+                        <span class="text-gray-700">Traitement cuir/tissu</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-sc-orange mt-1 mr-3"></i>
+                        <span class="text-gray-700">Polissage premium</span>
+                    </li>
+                </ul>
+                <div class="text-3xl font-bold text-sc-orange mb-4">À partir de XXX FC</div>
+                <a href="{% url 'core:services' %}"
+                    class="block text-center bg-sc-navy text-white px-6 py-3 rounded-full hover:bg-sc-orange transition font-semibold">
+                    En savoir plus
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-sc-navy mb-4">Comment ça marche?</h2>
+            <p class="text-xl text-gray-600">
+                Un processus simple en 4 étapes
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-8">
+            <div class="text-center relative">
+                <div
+                    class="w-24 h-24 bg-gradient-cyan rounded-full flex items-center justify-center mx-auto mb-6 text-white text-4xl font-bold">
+                    1
+                </div>
+                <h3 class="text-xl font-bold text-sc-navy mb-3">Arrivez au centre</h3>
+                <p class="text-gray-600">
+                    Rendez-vous à notre station à Kinshasa
+                </p>
+                {% if not forloop.last %}
+                <div class="hidden md:block absolute top-12 left-[60%] w-[80%] border-t-2 border-dashed border-sc-cyan">
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="text-center relative">
+                <div
+                    class="w-24 h-24 bg-gradient-cyan rounded-full flex items-center justify-center mx-auto mb-6 text-white text-4xl font-bold">
+                    2
+                </div>
+                <h3 class="text-xl font-bold text-sc-navy mb-3">Choisissez votre service</h3>
+                <p class="text-gray-600">
+                    Sélectionnez le forfait adapté à vos besoins
+                </p>
+                <div class="hidden md:block absolute top-12 left-[60%] w-[80%] border-t-2 border-dashed border-sc-cyan">
+                </div>
+            </div>
+
+            <div class="text-center relative">
+                <div
+                    class="w-24 h-24 bg-gradient-orange rounded-full flex items-center justify-center mx-auto mb-6 text-white text-4xl font-bold">
+                    3
+                </div>
+                <h3 class="text-xl font-bold text-sc-navy mb-3">Détendez-vous</h3>
+                <p class="text-gray-600">
+                    Notre équipe s'occupe de tout (30-90 min)
+                </p>
+                <div
+                    class="hidden md:block absolute top-12 left-[60%] w-[80%] border-t-2 border-dashed border-sc-orange">
+                </div>
+            </div>
+
+            <div class="text-center">
+                <div
+                    class="w-24 h-24 bg-gradient-orange rounded-full flex items-center justify-center mx-auto mb-6 text-white text-4xl font-bold">
+                    4
+                </div>
+                <h3 class="text-xl font-bold text-sc-navy mb-3">Voiture étincelante!</h3>
+                <p class="text-gray-600">
+                    Repartez avec une voiture comme neuve
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-sc-navy mb-4">Ce que disent nos clients</h2>
+            <p class="text-xl text-gray-600">
+                Découvrez pourquoi ils nous font confiance
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-gray-50 rounded-2xl p-8 hover-lift">
+                <div class="flex items-center mb-4">
+                    <div class="flex text-sc-yellow text-xl">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-gray-700 mb-6 italic">
+                    "Service impeccable! Mon véhicule n'a jamais été aussi propre. L'équipe est professionnelle et
+                    rapide."
+                </p>
+                <div class="flex items-center">
+                    <div
+                        class="w-12 h-12 bg-gradient-cyan rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                        JK
+                    </div>
+                    <div>
+                        <div class="font-bold text-sc-navy">Jean Kabongo</div>
+                        <div class="text-sm text-gray-500">Kinshasa</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl p-8 hover-lift">
+                <div class="flex items-center mb-4">
+                    <div class="flex text-sc-yellow text-xl">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-gray-700 mb-6 italic">
+                    "Je recommande vivement Shine Congo. Excellent rapport qualité-prix et personnel très accueillant."
+                </p>
+                <div class="flex items-center">
+                    <div
+                        class="w-12 h-12 bg-gradient-orange rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                        MM
+                    </div>
+                    <div>
+                        <div class="font-bold text-sc-navy">Marie Mbuyi</div>
+                        <div class="text-sm text-gray-500">Gombe</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl p-8 hover-lift">
+                <div class="flex items-center mb-4">
+                    <div class="flex text-sc-yellow text-xl">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-gray-700 mb-6 italic">
+                    "Meilleur car wash de Kinshasa! J'y vais toutes les semaines. Service premium à prix raisonnable."
+                </p>
+                <div class="flex items-center">
+                    <div
+                        class="w-12 h-12 bg-gradient-cyan rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                        PN
+                    </div>
+                    <div>
+                        <div class="font-bold text-sc-navy">Patrick Nlandu</div>
+                        <div class="text-sm text-gray-500">Limete</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-sc-navy mb-4">Questions fréquentes</h2>
+            <p class="text-xl text-gray-600">
+                Tout ce que vous devez savoir sur nos services
+            </p>
+        </div>
+
+        <div class="space-y-4">
+            <details class="bg-white rounded-xl shadow-md group">
+                <summary
+                    class="p-6 cursor-pointer font-semibold text-lg text-sc-navy flex justify-between items-center">
+                    Quels sont vos horaires d'ouverture?
+                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform text-sc-cyan"></i>
+                </summary>
+                <div class="px-6 pb-6 text-gray-600">
+                    Nous sommes ouverts du lundi au samedi de 8h à 18h, et le dimanche de 9h à 15h. Fermé les jours
+                    fériés.
+                </div>
+            </details>
+
+            <details class="bg-white rounded-xl shadow-md group">
+                <summary
+                    class="p-6 cursor-pointer font-semibold text-lg text-sc-navy flex justify-between items-center">
+                    Combien de temps prend un lavage complet?
+                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform text-sc-cyan"></i>
+                </summary>
+                <div class="px-6 pb-6 text-gray-600">
+                    Un lavage basique prend environ 30 minutes, le Premium Wash environ 45 minutes, et le Detailing
+                    Complet peut prendre de 90 à 120 minutes selon l'état du véhicule.
+                </div>
+            </details>
+
+            <details class="bg-white rounded-xl shadow-md group">
+                <summary
+                    class="p-6 cursor-pointer font-semibold text-lg text-sc-navy flex justify-between items-center">
+                    Acceptez-vous les paiements par mobile money?
+                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform text-sc-cyan"></i>
+                </summary>
+                <div class="px-6 pb-6 text-gray-600">
+                    Oui! Nous acceptons Airtel Money, M-Pesa, Orange Money ainsi que les paiements en espèces.
+                </div>
+            </details>
+
+            <details class="bg-white rounded-xl shadow-md group">
+                <summary
+                    class="p-6 cursor-pointer font-semibold text-lg text-sc-navy flex justify-between items-center">
+                    Dois-je prendre rendez-vous?
+                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform text-sc-cyan"></i>
+                </summary>
+                <div class="px-6 pb-6 text-gray-600">
+                    Ce n'est pas obligatoire mais c'est recommandé, surtout le week-end. Vous pouvez nous appeler ou
+                    nous envoyer un message WhatsApp pour réserver votre créneau.
+                </div>
+            </details>
+
+            <details class="bg-white rounded-xl shadow-md group">
+                <summary
+                    class="p-6 cursor-pointer font-semibold text-lg text-sc-navy flex justify-between items-center">
+                    Offrez-vous des forfaits abonnement?
+                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform text-sc-cyan"></i>
+                </summary>
+                <div class="px-6 pb-6 text-gray-600">
+                    Oui! Nous proposons des forfaits mensuels et trimestriels avec des tarifs avantageux pour les
+                    clients réguliers. Contactez-nous pour plus d'informations.
+                </div>
+            </details>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Banner -->
+<section class="py-20 bg-gradient-to-r from-sc-navy via-sc-cyan to-sc-navy text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-10 right-10 w-40 h-40 bg-white rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 left-10 w-32 h-32 bg-sc-orange rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="container mx-auto px-4 text-center relative z-10">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Prêt à faire briller votre voiture?</h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">
+            Rejoignez des centaines de clients satisfaits qui nous font confiance pour l'entretien de leur véhicule
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'contact:contact' %}"
+                class="bg-white text-sc-navy px-8 py-4 rounded-full font-semibold text-lg hover:bg-sc-yellow transition">
+                <i class="fas fa-phone mr-2"></i>
+                Nous contacter
+            </a>
+            <a href="{% url 'applications:apply' %}"
+                class="bg-sc-orange text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-sc-orange-light transition">
+                <i class="fas fa-user-plus mr-2"></i>
+                Rejoindre l'équipe
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Message Envoyé - Shine Congo{% endblock %}
+
+{% block content %}
+
+<section class="py-20 min-h-screen flex items-center">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+            <div
+                class="w-32 h-32 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-8 animate-pulse">
+                <i class="fas fa-check text-6xl text-white"></i>
+            </div>
+
+            <h1 class="text-5xl font-bold text-sc-navy mb-6">Message Envoyé!</h1>
+
+            <p class="text-xl text-gray-600 mb-8">
+                Merci de nous avoir contactés. Nous avons bien reçu votre message et nous vous répondrons dans les plus
+                brefs délais.
+            </p>
+
+            <div class="bg-sc-cyan/10 rounded-2xl p-8 mb-8">
+                <p class="text-gray-700">
+                    <i class="fas fa-info-circle text-sc-cyan mr-2"></i>
+                    Vous recevrez une réponse dans un délai de 24 à 48 heures ouvrables.
+                </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="{% url 'core:home' %}"
+                    class="btn-primary text-white px-8 py-3 rounded-full font-semibold inline-block">
+                    <i class="fas fa-home mr-2"></i>
+                    Retour à l'accueil
+                </a>
+                <a href="{% url 'core:services' %}"
+                    class="bg-gray-200 text-sc-navy px-8 py-3 rounded-full font-semibold hover:bg-gray-300 transition inline-block">
+                    <i class="fas fa-spray-can mr-2"></i>
+                    Découvrir nos services
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

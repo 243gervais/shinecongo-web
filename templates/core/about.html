@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}À Propos - Shine Congo{% endblock %}
+
+{% block content %}
+
+<section class="bg-gradient-to-r from-sc-navy to-sc-cyan text-white py-20">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">À Propos de Shine Congo</h1>
+        <p class="text-xl max-w-3xl mx-auto">Notre mission: Révolutionner le lavage automobile à Kinshasa</p>
+    </div>
+</section>
+
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-sc-navy mb-8">Notre Histoire</h2>
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                Fondée en 2014 à Kinshasa, Shine Congo est née d'une vision simple: offrir aux propriétaires de
+                véhicules un service de lavage auto professionnel, rapide et abordable dans la capitale congolaise.
+            </p>
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                Avec plus de 10 ans d'expérience, nous sommes devenus la référence en matière de lavage automobile
+                premium à Kinshasa. Notre succès repose sur trois piliers: la qualité du service, la formation continue
+                de notre équipe, et l'investissement dans les meilleures technologies.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-8 my-16">
+                <div class="text-center">
+                    <div class="text-5xl font-bold text-sc-orange mb-2">10+</div>
+                    <p class="text-gray-600">Années d'expérience</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-5xl font-bold text-sc-cyan mb-2">5000+</div>
+                    <p class="text-gray-600">Clients satisfaits</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-5xl font-bold text-sc-yellow mb-2">25+</div>
+                    <p class="text-gray-600">Employés qualifiés</p>
+                </div>
+            </div>
+
+            <h2 class="text-4xl font-bold text-sc-navy mb-8 mt-16">Notre Mission</h2>
+            <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                Fournir des services de lavage et d'entretien automobile exceptionnels, tout en créant des opportunités
+                d'emploi de qualité pour les jeunes Congolais. Nous croyons que chaque véhicule mérite un soin
+                professionnel et que chaque employé mérite respect, formation et perspectives de carrière.
+            </p>
+
+            <h2 class="text-4xl font-bold text-sc-navy mb-8 mt-16">Nos Valeurs</h2>
+            <div class="space-y-6">
+                <div class="flex items-start">
+                    <div
+                        class="w-16 h-16 bg-sc-cyan text-white rounded-full flex items-center justify-center mr-6 flex-shrink-0">
+                        <i class="fas fa-award text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-sc-navy mb-2">Excellence</h3>
+                        <p class="text-gray-700">Nous visons la perfection dans chaque lavage, sans compromis sur la
+                            qualité.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div
+                        class="w-16 h-16 bg-sc-orange text-white rounded-full flex items-center justify-center mr-6 flex-shrink-0">
+                        <i class="fas fa-handshake text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-sc-navy mb-2">Confiance</h3>
+                        <p class="text-gray-700">Votre véhicule est entre de bonnes mains. Nous traitons chaque voiture
+                            comme la nôtre.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div
+                        class="w-16 h-16 bg-sc-cyan text-white rounded-full flex items-center justify-center mr-6 flex-shrink-0">
+                        <i class="fas fa-rocket text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-sc-navy mb-2">Innovation</h3>
+                        <p class="text-gray-700">Nous adoptons les dernières technologies pour offrir le meilleur
+                            service.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div
+                        class="w-16 h-16 bg-sc-orange text-white rounded-full flex items-center justify-center mr-6 flex-shrink-0">
+                        <i class="fas fa-users text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-sc-navy mb-2">Développement Local</h3>
+                        <p class="text-gray-700">Nous investissons dans la formation et l'épanouissement de notre équipe
+                            congolaise.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-sc-navy text-white">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-4xl font-bold mb-6">Rejoignez-nous!</h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">
+            Nous recherchons constamment des personnes passionnées et motivées pour rejoindre notre équipe
+        </p>
+        <a href="{% url 'careers:list' %}"
+            class="btn-primary text-white px-10 py-4 rounded-full font-semibold text-lg inline-block">
+            Voir les Postes Disponibles
+        </a>
+    </div>
+</section>
+
+{% endblock %}

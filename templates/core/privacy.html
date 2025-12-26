@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Politique de Confidentialité - Shine Congo{% endblock %}
+
+{% block content %}
+
+<section class="bg-sc-navy text-white py-16">
+    <div class="container mx-auto px-4">
+        <h1 class="text-4xl font-bold">Politique de Confidentialité</h1>
+        <p class="mt-4">Dernière mise à jour: {{ current_year|default:"2024" }}</p>
+    </div>
+</section>
+
+<section class="py-16">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <div class="prose prose-lg max-w-none">
+            <h2>1. Introduction</h2>
+            <p>Shine Congo s'engage à protéger la confidentialité de vos données personnelles. Cette politique décrit
+                comment nous collectons, utilisons et protégeons vos informations.</p>
+
+            <h2>2. Collecte des Données</h2>
+            <p>Nous collectons les données que vous nous fournissez directement lors de:</p>
+            <ul>
+                <li>L'envoi d'une candidature (nom, email, téléphone, CV)</li>
+                <li>L'envoi d'un message via notre formulaire de contact</li>
+                <li>La réservation d'un service</li>
+            </ul>
+
+            <h2>3. Utilisation des Données</h2>
+            <p>Vos données sont utilisées uniquement pour:</p>
+            <ul>
+                <li>Traiter votre candidature d'emploi</li>
+                <li>Répondre à vos questions et demandes</li>
+                <li>Améliorer nos services</li>
+            </ul>
+
+            <h2>4. Protection des Données</h2>
+            <p>Nous utilisons des mesures de sécurité techniques et organisationnelles pour protéger vos données contre
+                tout accès non autorisé.</p>
+
+            <h2>5. Partage des Données</h2>
+            <p>Nous ne vendons ni ne louons vos données personnelles à des tiers. Vos informations ne sont partagées
+                qu'avec notre personnel autorisé pour le traitement de votre demande.</p>
+
+            <h2>6. Vos Droits</h2>
+            <p>Vous avez le droit de:</p>
+            <ul>
+                <li>Accéder à vos données personnelles</li>
+                <li>Demander la correction de données inexactes</li>
+                <li>Demander la suppression de vos données</li>
+            </ul>
+
+            <h2>7. Contact</h2>
+            <p>Pour toute question concernant cette politique, contactez-nous à: <a href="mailto:privacy@shinecongo.com"
+                    class="text-sc-cyan">privacy@shinecongo.com</a></p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Nos Services - Shine Congo{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<section class="bg-gradient-to-r from-sc-navy to-sc-cyan text-white py-20">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">Nos Services</h1>
+        <p class="text-xl max-w-3xl mx-auto">
+            Des solutions de lavage auto adaptées à tous vos besoins, avec la garantie Shine Congo
+        </p>
+    </div>
+</section>
+
+<!-- Services Details -->
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <!-- Service 1 -->
+        <div class="mb-20">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-block bg-sc-cyan text-white px-4 py-2 rounded-full mb-4">
+                        <i class="fas fa-spray-can mr-2"></i>
+                        SERVICE ESSENTIEL
+                    </div>
+                    <h2 class="text-4xl font-bold text-sc-navy mb-6">Lavage Basique</h2>
+                    <p class="text-xl text-gray-600 mb-6">
+                        Le service parfait pour un entretien régulier de votre véhicule. Rapide, efficace, et
+                        économique.
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sc-cyan text-2xl mr-4 mt-1"></i>
+                            <div>
+                                <strong class="text-sc-navy">Lavage extérieur complet</strong>
+                                <p class="text-gray-600">Nettoyage en profondeur de la carrosserie, jantes, et
+                                    pare-chocs</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sc-cyan text-2xl mr-4 mt-1"></i>
+                            <div>
+                                <strong class="text-sc-navy">Aspiration intérieure</strong>
+                                <p class="text-gray-600">Sièges, tapis, coffre, et tous les recoins</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sc-cyan text-2xl mr-4 mt-1"></i>
+                            <div>
+                                <strong class="text-sc-navy">Nettoyage des vitres</strong>
+                                <p class="text-gray-600">Intérieur et extérieur pour une visibilité parfaite</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="text-4xl font-bold text-sc-orange mb-4">À partir de XXX FC</div>
+                    <p class="text-gray-500">Durée: environ 30 minutes</p>
+                </div>
+                <div class="bg-gradient-cyan rounded-3xl p-12 text-white text-center">
+                    <i class="fas fa-car text-9xl mb-6 opacity-20"></i>
+                    <h3 class="text-3xl font-bold">Lavage Rapide</h3>
+                    <p class="text-lg mt-4">Idéal pour un entretien hebdomadaire</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="mb-20">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1 bg-gradient-orange rounded-3xl p-12 text-white text-center">
+                    <i class="fas fa-star text-9xl mb-6 opacity-20"></i>
+                    <h3 class="text-3xl font-bold">Most Popular</h3>
+                    <p class="text-lg mt-4">Le choix de nos clients réguliers</p>
+                </div>
+                <div class="order-1 md:order-2">
+                    <div class="inline-block bg-sc-yellow text-sc-navy px-4 py-2 rounded-full mb-4 font-semibold">
+                        <i class="fas fa-crown mr-2"></i>
+                        LE PLUS POPULAIRE
+                    </div>
+                    <h2 class="text-4xl font-bold text-sc-navy mb-6">Premium Wash</h2>
+                    <p class="text-xl text-gray-600 mb-6">
+                        Notre service signature qui combine nettoyage complet et protection durable.
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sc-orange text-2xl mr-4 mt-1"></i>
+                            <div>
+                                <strong class="text-sc-navy">Tout du Lavage Basique</strong>
+                                <p class="text-gray-600">Plus tous les avantages supplémentaires ci-dessous</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sc-orange text-2xl mr-4 mt-1"></i>
+                            <div>
+                                <strong class="text-sc-navy">Cirage et polissage</strong>
+                                <p class="text-gray-600">Protection et brillance longue durée de la peinture</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sc-orange text-2xl mr-4 mt-1"></i>
+                            <div>
+                                <strong class="text-sc-navy">Traitement des pneus</strong>
+                                <p class="text-gray-600">Nettoyage approfondi et protection des pneus</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sc-orange text-2xl mr-4 mt-1"></i>
+                            <div>
+                                <strong class="text-sc-navy">Nettoyage tableau de bord</strong>
+                                <p class="text-gray-600">Traitement et protection des plastiques intérieurs</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="text-4xl font-bold text-sc-orange mb-4">À partir de XXX FC</div>
+                    <p class="text-gray-500">Durée: environ 45 minutes</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="mb-20">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-block bg-sc-navy text-white px-4 py-2 rounded-full mb-4">
+                        <i class="fas fa-gem mr-2"></i>
+                        SERVICE PREMIUM
+                    </div>
+                    <h2 class="text-4xl font-bold text-sc-navy mb-6">Detailing Complet</h2>
+                    <p class="text-xl text-gray-600 mb-6">
+                        Le nec plus ultra du lavage automobile. Votre voiture sera comme neuve.
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sc-navy text-2xl mr-4 mt-1"></i>
+                            <div>
+                                <strong class="text-sc-navy">Tout du Premium Wash</strong>
+                                <p class="text-gray-600">Service complet incluant tous les éléments premium</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sc-navy text-2xl mr-4 mt-1"></i>
+                            <div>
+                                <strong class="text-sc-navy">Nettoyage du compartiment moteur</strong>
+                                <p class="text-gray-600">Dégraissage et nettoyage en profondeur</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sc-navy text-2xl mr-4 mt-1"></i>
+                            <div>
+                                <strong class="text-sc-navy">Traitement cuir/tissu professionnel</strong>
+                                <p class="text-gray-600">Nettoyage, hydratation et protection des sièges</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sc-navy text-2xl mr-4 mt-1"></i>
+                            <div>
+                                <strong class="text-sc-navy">Polissage et correction de peinture</strong>
+                                <p class="text-gray-600">Élimination des micro-rayures et restauration de l'éclat</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-sc-navy text-2xl mr-4 mt-1"></i>
+                            <div>
+                                <strong class="text-sc-navy">Cirage céramique</strong>
+                                <p class="text-gray-600">Protection haut de gamme longue durée</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="text-4xl font-bold text-sc-orange mb-4">À partir de XXX FC</div>
+                    <p class="text-gray-500">Durée: 90 à 120 minutes</p>
+                </div>
+                <div class="bg-gradient-to-br from-sc-navy to-sc-cyan rounded-3xl p-12 text-white text-center">
+                    <i class="fas fa-certificate text-9xl mb-6 opacity-20"></i>
+                    <h3 class="text-3xl font-bold">Service VIP</h3>
+                    <p class="text-lg mt-4">Excellence garantie</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Services -->
+        <div class="bg-gray-50 rounded-3xl p-12 mt-20">
+            <h2 class="text-3xl font-bold text-sc-navy mb-8 text-center">Services Supplémentaires</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl">
+                    <i class="fas fa-cog text-4xl text-sc-cyan mb-4"></i>
+                    <h3 class="text-xl font-bold text-sc-navy mb-2">Nettoyage Moteur Seul</h3>
+                    <p class="text-gray-600 mb-4">Dégraissage complet du compartiment moteur</p>
+                    <div class="text-2xl font-bold text-sc-orange">À partir de XXX FC</div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl">
+                    <i class="fas fa-chair text-4xl text-sc-cyan mb-4"></i>
+                    <h3 class="text-xl font-bold text-sc-navy mb-2">Nettoyage Intérieur Profond</h3>
+                    <p class="text-gray-600 mb-4">Shampoing des sièges et tapis</p>
+                    <div class="text-2xl font-bold text-sc-orange">À partir de XXX FC</div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl">
+                    <i class="fas fa-shield-alt text-4xl text-sc-cyan mb-4"></i>
+                    <h3 class="text-xl font-bold text-sc-navy mb-2">Protection Céramique</h3>
+                    <p class="text-gray-600 mb-4">Traitement céramique haut de gamme</p>
+                    <div class="text-2xl font-bold text-sc-orange">À partir de XXX FC</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 bg-sc-navy text-white">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-4xl font-bold mb-6">Prêt à réserver votre service?</h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">
+            Contactez-nous dès maintenant pour prendre rendez-vous ou passer directement à notre station
+        </p>
+        <a href="{% url 'contact:contact' %}"
+            class="btn-primary text-white px-10 py-4 rounded-full font-semibold text-lg inline-block">
+            Nous Contacter
+        </a>
+    </div>
+</section>
+
+{% endblock %}
