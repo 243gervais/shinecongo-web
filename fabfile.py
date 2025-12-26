@@ -29,6 +29,8 @@ CERTBOT_EMAIL = "admin@shinecongo.com"
 
 APP_USER = "ubuntu"
 APP_GROUP = "www-data"
+WSGI_MODULE = "config.wsgi"
+
 
 
 def _run(c, cmd, sudo=False):
@@ -255,7 +257,8 @@ def bootstrap(c):
     _ensure_postgres(c)
 
     manage_py = _find_manage_py(c)
-    wsgi_module = _get_wsgi_module(c, manage_py)
+    wsgi_module = WSGI_MODULE
+
 
     _manage(c, manage_py, "migrate")
     _manage(c, manage_py, "collectstatic --noinput")
