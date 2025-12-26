@@ -1,0 +1,41 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block page_title %}Supprimer le poste{% endblock %}
+
+{% block content %}
+<div class="mb-6">
+    <a href="{% url 'admin_panel:jobs_list' %}" class="text-sc-cyan hover:text-sc-cyan-light">
+        <i class="fas fa-arrow-left mr-2"></i>Retour à la liste
+    </a>
+</div>
+
+<div class="max-w-2xl">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold text-sc-navy">Supprimer le poste</h2>
+                <p class="text-gray-500">Cette action est irréversible</p>
+            </div>
+        </div>
+        
+        <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+            <p class="text-red-800 font-medium mb-2">Êtes-vous sûr de vouloir supprimer ce poste ?</p>
+            <p class="text-gray-700"><strong>{{ job.title }}</strong></p>
+        </div>
+        
+        <form method="post" class="flex justify-end space-x-4">
+            {% csrf_token %}
+            <a href="{% url 'admin_panel:jobs_list' %}" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                Annuler
+            </a>
+            <button type="submit" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                <i class="fas fa-trash mr-2"></i>Supprimer définitivement
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

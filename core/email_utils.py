@@ -7,10 +7,14 @@ from django.utils.html import strip_tags
 def send_application_notification(application):
     """Envoie une notification email lors d'une nouvelle candidature"""
     
-    subject = f'Nouvelle candidature: {application.position_applied} - {application.full_name}'
+    subject = f'Nouvelle candidature: {application.full_name}'
     
     # Préparer le contenu
     cv_url = application.cv_file.url if application.cv_file else 'Aucun CV'
+    
+    # Format date safely
+    date_of_birth_str = application.date_of_birth.strftime('%d/%m/%Y') if application.date_of_birth else 'Non spécifiée'
+    physical_address_str = application.physical_address or 'Non spécifiée'
     
     html_message = f"""
     <html>
@@ -20,16 +24,10 @@ def send_application_notification(application):
         <div style="background-color: #f4f4f4; padding: 20px; border-radius: 5px; margin: 20px 0;">
             <h3 style="color: #2A9D8F; margin-top: 0;">Informations du Candidat</h3>
             <p><strong>Nom:</strong> {application.full_name}</p>
-            <p><strong>Email:</strong> {application.email}</p>
+            <p><strong>Date de naissance:</strong> {date_of_birth_str}</p>
             <p><strong>Téléphone:</strong> {application.phone}</p>
             <p><strong>Ville:</strong> {application.city}</p>
-        </div>
-        
-        <div style="background-color: #f4f4f4; padding: 20px; border-radius: 5px; margin: 20px 0;">
-            <h3 style="color: #2A9D8F; margin-top: 0;">Détails de la Candidature</h3>
-            <p><strong>Poste:</strong> {application.position_applied}</p>
-            <p><strong>Années d'expérience:</strong> {application.years_experience}</p>
-            <p><strong>Disponibilité:</strong> {application.availability_date or 'Non spécifiée'}</p>
+            <p><strong>Adresse physique:</strong> {physical_address_str}</p>
         </div>
         
         <div style="background-color: #f4f4f4; padding: 20px; border-radius: 5px; margin: 20px 0;">

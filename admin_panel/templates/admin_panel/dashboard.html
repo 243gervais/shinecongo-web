@@ -1,0 +1,165 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block page_title %}Tableau de bord{% endblock %}
+
+{% block content %}
+<!-- Statistics Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+    <!-- Applications Card -->
+    <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-sc-cyan">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-500 text-sm font-medium">Candidatures</p>
+                <p class="text-3xl font-bold text-sc-navy mt-2">{{ total_applications }}</p>
+                <p class="text-sm text-red-600 mt-1">
+                    <i class="fas fa-exclamation-circle mr-1"></i>{{ new_applications }} non examinées
+                </p>
+            </div>
+            <div class="w-16 h-16 bg-sc-cyan bg-opacity-10 rounded-full flex items-center justify-center">
+                <i class="fas fa-briefcase text-3xl text-sc-cyan"></i>
+            </div>
+        </div>
+        <a href="{% url 'admin_panel:applications_list' %}" class="block mt-4 text-sm text-sc-cyan hover:text-sc-cyan-light font-medium">
+            Voir toutes <i class="fas fa-arrow-right ml-1"></i>
+        </a>
+    </div>
+    
+    <!-- Jobs Card -->
+    <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-sc-orange">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-500 text-sm font-medium">Postes</p>
+                <p class="text-3xl font-bold text-sc-navy mt-2">{{ total_jobs }}</p>
+                <p class="text-sm text-green-600 mt-1">
+                    <i class="fas fa-check-circle mr-1"></i>{{ active_jobs }} actifs
+                </p>
+            </div>
+            <div class="w-16 h-16 bg-sc-orange bg-opacity-10 rounded-full flex items-center justify-center">
+                <i class="fas fa-user-tie text-3xl text-sc-orange"></i>
+            </div>
+        </div>
+        <a href="{% url 'admin_panel:jobs_list' %}" class="block mt-4 text-sm text-sc-orange hover:text-sc-orange-light font-medium">
+            Gérer les postes <i class="fas fa-arrow-right ml-1"></i>
+        </a>
+    </div>
+    
+    <!-- Messages Card -->
+    <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-sc-yellow">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-500 text-sm font-medium">Messages</p>
+                <p class="text-3xl font-bold text-sc-navy mt-2">{{ total_messages }}</p>
+                <p class="text-sm text-red-600 mt-1">
+                    <i class="fas fa-envelope mr-1"></i>{{ unread_messages }} non lus
+                </p>
+            </div>
+            <div class="w-16 h-16 bg-sc-yellow bg-opacity-10 rounded-full flex items-center justify-center">
+                <i class="fas fa-envelope text-3xl text-sc-yellow"></i>
+            </div>
+        </div>
+        <a href="{% url 'admin_panel:messages_list' %}" class="block mt-4 text-sm text-sc-yellow hover:text-sc-yellow font-medium">
+            Voir les messages <i class="fas fa-arrow-right ml-1"></i>
+        </a>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Applications Chart -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h3 class="text-lg font-semibold text-sc-navy mb-4">Candidatures (7 derniers jours)</h3>
+        <div class="h-64 flex items-end justify-between space-x-2">
+            {% for count in applications_by_day %}
+                <div class="flex-1 flex flex-col items-center">
+                    <div class="w-full bg-sc-cyan rounded-t" style="height: {{ count|add:1 }}0px; min-height: 20px;" title="{{ count }} candidatures"></div>
+                    <span class="text-xs text-gray-500 mt-2">{{ forloop.counter0|add:1 }}j</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Messages Chart -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h3 class="text-lg font-semibold text-sc-navy mb-4">Messages (7 derniers jours)</h3>
+        <div class="h-64 flex items-end justify-between space-x-2">
+            {% for count in messages_by_day %}
+                <div class="flex-1 flex flex-col items-center">
+                    <div class="w-full bg-sc-orange rounded-t" style="height: {{ count|add:1 }}0px; min-height: 20px;" title="{{ count }} messages"></div>
+                    <span class="text-xs text-gray-500 mt-2">{{ forloop.counter0|add:1 }}j</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Recent Applications -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-sc-navy">Candidatures récentes</h3>
+            <a href="{% url 'admin_panel:applications_list' %}" class="text-sm text-sc-cyan hover:text-sc-cyan-light">
+                Voir tout
+            </a>
+        </div>
+        <div class="space-y-3">
+            {% for application in recent_applications %}
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                    <div class="flex-1 min-w-0">
+                        <p class="font-medium text-sc-navy truncate">{{ application.full_name }}</p>
+                        <p class="text-sm text-gray-500 truncate">{{ application.city }}</p>
+                        <p class="text-xs text-gray-400">{{ application.applied_at|date:"d/m/Y H:i" }}</p>
+                    </div>
+                    <div class="ml-4">
+                        {% if not application.reviewed %}
+                            <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">Nouveau</span>
+                        {% else %}
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Examiné</span>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'admin_panel:application_detail' application.pk %}" class="ml-2 text-sc-cyan hover:text-sc-cyan-light">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            {% empty %}
+                <p class="text-gray-500 text-center py-4">Aucune candidature récente</p>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Recent Messages -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-sc-navy">Messages récents</h3>
+            <a href="{% url 'admin_panel:messages_list' %}" class="text-sm text-sc-cyan hover:text-sc-cyan-light">
+                Voir tout
+            </a>
+        </div>
+        <div class="space-y-3">
+            {% for message in recent_messages %}
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                    <div class="flex-1 min-w-0">
+                        <p class="font-medium text-sc-navy truncate">{{ message.name }}</p>
+                        <p class="text-sm text-gray-500 truncate">{{ message.subject }}</p>
+                        <p class="text-xs text-gray-400">{{ message.created_at|date:"d/m/Y H:i" }}</p>
+                    </div>
+                    <div class="ml-4">
+                        {% if not message.read %}
+                            <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">Non lu</span>
+                        {% else %}
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Lu</span>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'admin_panel:message_detail' message.pk %}" class="ml-2 text-sc-cyan hover:text-sc-cyan-light">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            {% empty %}
+                <p class="text-gray-500 text-center py-4">Aucun message récent</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

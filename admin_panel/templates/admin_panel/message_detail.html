@@ -1,0 +1,76 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block page_title %}Détails du Message{% endblock %}
+
+{% block content %}
+<div class="mb-6">
+    <a href="{% url 'admin_panel:messages_list' %}" class="text-sc-cyan hover:text-sc-cyan-light">
+        <i class="fas fa-arrow-left mr-2"></i>Retour à la liste
+    </a>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Content -->
+    <div class="lg:col-span-2 space-y-6">
+        <!-- Message Content -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="mb-4 pb-4 border-b">
+                <h3 class="text-xl font-semibold text-sc-navy mb-2">{{ message.subject }}</h3>
+                <div class="flex items-center space-x-4 text-sm text-gray-500">
+                    <span><i class="fas fa-user mr-1"></i>{{ message.name }}</span>
+                    <span><i class="fas fa-envelope mr-1"></i>{{ message.email }}</span>
+                    {% if message.phone %}
+                    <span><i class="fas fa-phone mr-1"></i>{{ message.phone }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="prose max-w-none">
+                <p class="text-gray-700 whitespace-pre-wrap">{{ message.message }}</p>
+            </div>
+            
+            <div class="mt-6 pt-4 border-t text-sm text-gray-500">
+                <p>Reçu le {{ message.created_at|date:"d/m/Y à H:i" }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="space-y-6">
+        <!-- Status -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-sc-navy mb-4">Statut</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="space-y-4">
+                    <label class="flex items-center">
+                        <input type="checkbox" name="replied" {% if message.replied %}checked{% endif %} 
+                               class="rounded border-gray-300 text-sc-cyan focus:ring-sc-cyan">
+                        <span class="ml-2 text-gray-700">Marquer comme répondu</span>
+                    </label>
+                    <div>
+                        <label class="block text-sm text-gray-500 mb-2">Notes internes</label>
+                        <textarea name="notes" rows="6" 
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-transparent">{{ message.notes }}</textarea>
+                    </div>
+                    <button type="submit" class="w-full px-4 py-2 bg-sc-cyan text-white rounded-lg hover:bg-sc-cyan-light transition">
+                        <i class="fas fa-save mr-2"></i>Enregistrer
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-sc-navy mb-4">Actions rapides</h3>
+            <div class="space-y-2">
+                <a href="mailto:{{ message.email }}?subject=Re: {{ message.subject }}" 
+                   class="block w-full px-4 py-2 bg-sc-orange text-white rounded-lg hover:bg-sc-orange-light transition text-center">
+                    <i class="fas fa-reply mr-2"></i>Répondre par email
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

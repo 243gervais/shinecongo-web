@@ -1,0 +1,98 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block page_title %}Détails de la Candidature{% endblock %}
+
+{% block content %}
+<div class="mb-6">
+    <a href="{% url 'admin_panel:applications_list' %}" class="text-sc-cyan hover:text-sc-cyan-light">
+        <i class="fas fa-arrow-left mr-2"></i>Retour à la liste
+    </a>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Info -->
+    <div class="lg:col-span-2 space-y-6">
+        <!-- Personal Info -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-sc-navy mb-4">Informations personnelles</h3>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="text-sm text-gray-500">Nom complet</label>
+                    <p class="text-gray-900 font-medium">{{ application.full_name }}</p>
+                </div>
+                <div>
+                    <label class="text-sm text-gray-500">Date de naissance</label>
+                    <p class="text-gray-900">{{ application.date_of_birth|date:"d/m/Y" }}</p>
+                </div>
+                <div>
+                    <label class="text-sm text-gray-500">Téléphone</label>
+                    <p class="text-gray-900">{{ application.phone }}</p>
+                </div>
+                <div>
+                    <label class="text-sm text-gray-500">Ville</label>
+                    <p class="text-gray-900">{{ application.city }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Application Info -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-sc-navy mb-4">Informations de candidature</h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="text-sm text-gray-500">Adresse physique</label>
+                    <p class="text-gray-900 whitespace-pre-wrap">{{ application.physical_address }}</p>
+                </div>
+                {% if application.message %}
+                <div>
+                    <label class="text-sm text-gray-500">Message / Lettre de motivation</label>
+                    <p class="text-gray-900 whitespace-pre-wrap">{{ application.message }}</p>
+                </div>
+                {% endif %}
+                <div>
+                    <label class="text-sm text-gray-500">Date de candidature</label>
+                    <p class="text-gray-900">{{ application.applied_at|date:"d/m/Y à H:i" }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CV Download -->
+        {% if application.cv_file %}
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-sc-navy mb-4">CV</h3>
+            <a href="{% url 'admin_panel:download_cv' application.pk %}" 
+               class="inline-flex items-center px-4 py-2 bg-sc-cyan text-white rounded-lg hover:bg-sc-cyan-light transition">
+                <i class="fas fa-download mr-2"></i>Télécharger le CV
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="space-y-6">
+        <!-- Status -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-sc-navy mb-4">Statut</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="space-y-4">
+                    <label class="flex items-center">
+                        <input type="checkbox" name="reviewed" {% if application.reviewed %}checked{% endif %} 
+                               class="rounded border-gray-300 text-sc-cyan focus:ring-sc-cyan">
+                        <span class="ml-2 text-gray-700">Marquer comme examiné</span>
+                    </label>
+                    <div>
+                        <label class="block text-sm text-gray-500 mb-2">Notes internes</label>
+                        <textarea name="notes" rows="6" 
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-transparent">{{ application.notes }}</textarea>
+                    </div>
+                    <button type="submit" class="w-full px-4 py-2 bg-sc-cyan text-white rounded-lg hover:bg-sc-cyan-light transition">
+                        <i class="fas fa-save mr-2"></i>Enregistrer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

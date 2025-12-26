@@ -5,18 +5,18 @@ from .models import JobApplication
 
 @admin.register(JobApplication)
 class JobApplicationAdmin(admin.ModelAdmin):
-    list_display = ['full_name', 'position_applied', 'email', 'phone', 'city', 'cv_link', 'reviewed', 'applied_at']
-    list_filter = ['reviewed', 'position_applied', 'city', 'applied_at']
-    search_fields = ['full_name', 'email', 'phone', 'position_applied']
+    list_display = ['full_name', 'date_of_birth', 'physical_address', 'phone', 'city', 'cv_link', 'reviewed', 'applied_at']
+    list_filter = ['reviewed', 'city', 'applied_at']
+    search_fields = ['full_name', 'physical_address', 'phone', 'city']
     date_hierarchy = 'applied_at'
     readonly_fields = ['applied_at']
     
     fieldsets = (
         ('Informations du candidat', {
-            'fields': ('full_name', 'email', 'phone', 'city')
+            'fields': ('full_name', 'date_of_birth', 'physical_address', 'phone', 'city')
         }),
         ('Détails de la candidature', {
-            'fields': ('position_applied', 'years_experience', 'availability_date', 'message', 'cv_file')
+            'fields': ('message', 'cv_file')
         }),
         ('Gestion interne', {
             'fields': ('reviewed', 'notes', 'applied_at'),

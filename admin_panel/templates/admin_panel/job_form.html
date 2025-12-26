@@ -1,0 +1,98 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block page_title %}{% if action == 'create' %}Créer un poste{% else %}Modifier le poste{% endif %}{% endblock %}
+
+{% block content %}
+<div class="mb-6">
+    <a href="{% url 'admin_panel:jobs_list' %}" class="text-sc-cyan hover:text-sc-cyan-light">
+        <i class="fas fa-arrow-left mr-2"></i>Retour à la liste
+    </a>
+</div>
+
+<div class="max-w-4xl">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold text-sc-navy mb-6">
+            {% if action == 'create' %}Créer un nouveau poste{% else %}Modifier le poste{% endif %}
+        </h2>
+        
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Titre du poste *</label>
+                    <input type="text" name="title" value="{{ job.title|default:'' }}" required
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-transparent">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
+                    <input type="text" name="slug" value="{{ job.slug|default:'' }}" required
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-transparent"
+                           placeholder="exemple-titre-poste">
+                </div>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+                <textarea name="description" rows="4" required
+                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-transparent">{{ job.description|default:'' }}</textarea>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Responsabilités *</label>
+                <textarea name="responsibilities" rows="4" required
+                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-transparent">{{ job.responsibilities|default:'' }}</textarea>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Exigences *</label>
+                <textarea name="requirements" rows="4" required
+                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-transparent">{{ job.requirements|default:'' }}</textarea>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Avantages</label>
+                <textarea name="benefits" rows="3"
+                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-transparent">{{ job.benefits|default:'' }}</textarea>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Type d'emploi *</label>
+                    <select name="employment_type" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-transparent">
+                        <option value="FULL_TIME" {% if job.employment_type == 'FULL_TIME' %}selected{% endif %}>Temps plein</option>
+                        <option value="PART_TIME" {% if job.employment_type == 'PART_TIME' %}selected{% endif %}>Temps partiel</option>
+                        <option value="CONTRACT" {% if job.employment_type == 'CONTRACT' %}selected{% endif %}>Contrat</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Lieu</label>
+                    <input type="text" name="location" value="{{ job.location|default:'Kinshasa, RDC' }}"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-transparent">
+                </div>
+                
+                <div class="flex items-center pt-8">
+                    <label class="flex items-center">
+                        <input type="checkbox" name="is_active" {% if job.is_active or action == 'create' %}checked{% endif %}
+                               class="rounded border-gray-300 text-sc-cyan focus:ring-sc-cyan">
+                        <span class="ml-2 text-gray-700">Poste actif</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="flex justify-end space-x-4 pt-4 border-t">
+                <a href="{% url 'admin_panel:jobs_list' %}" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                    Annuler
+                </a>
+                <button type="submit" class="px-6 py-2 bg-sc-cyan text-white rounded-lg hover:bg-sc-cyan-light transition">
+                    <i class="fas fa-save mr-2"></i>Enregistrer
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

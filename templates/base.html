@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
+
     <title>{% block title %}Shine Congo - Lavage Auto Premium à Kinshasa{% endblock %}</title>
-    
+
     <!-- SEO Meta Tags -->
-    <meta name="description" content="{% block meta_description %}Shine Congo offre des services de lavage auto premium à Kinshasa. Service rapide, fiable et professionnel. Rejoignez notre équipe!{% endblock %}">
+    <meta name="description"
+        content="{% block meta_description %}Shine Congo offre des services de lavage auto premium à Kinshasa. Service rapide, fiable et professionnel. Rejoignez notre équipe!{% endblock %}">
     <meta name="keywords" content="lavage auto Kinshasa, car wash Congo, nettoyage voiture RDC, Shine Congo">
     <meta name="author" content="Shine Congo">
-    
+
     <!-- Open Graph -->
     <meta property="og:title" content="{% block og_title %}Shine Congo - Lavage Auto Premium{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Service de lavage auto professionnel à Kinshasa{% endblock %}">
+    <meta property="og:description"
+        content="{% block og_description %}Service de lavage auto professionnel à Kinshasa{% endblock %}">
     <meta property="og:type" content="website">
-    
+
+    <!-- Favicon -->
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}?v=2">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon.png' %}?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon.png' %}?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}?v=2">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -38,214 +48,243 @@
             }
         }
     </script>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+
     <style>
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-        
+
         /* Smooth scroll behavior */
         html {
             scroll-behavior: smooth;
         }
-        
+
         /* Custom gradient backgrounds */
         .gradient-orange {
             background: linear-gradient(135deg, #E76F51 0%, #F4A261 100%);
         }
-        
+
         .gradient-cyan {
             background: linear-gradient(135deg, #2A9D8F 0%, #3AACB8 100%);
         }
-        
+
         .gradient-sunset {
             background: linear-gradient(135deg, #F6BD60 0%, #F4A261 50%, #E76F51 100%);
         }
-        
+
         /* Hover effects */
         .hover-lift {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
         .hover-lift:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0, 59, 92, 0.15);
         }
-        
+
         /* Water droplet animation */
         @keyframes droplet {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0) scale(1);
                 opacity: 0.8;
             }
+
             50% {
                 transform: translateY(-10px) scale(1.1);
                 opacity: 1;
             }
         }
-        
+
         .water-droplet {
             animation: droplet 2s ease-in-out infinite;
         }
-        
+
         /* Button animations */
         .btn-primary {
             background: linear-gradient(135deg, #E76F51 0%, #F4A261 100%);
             transition: all 0.3s ease;
         }
-        
+
         .btn-primary:hover {
             background: linear-gradient(135deg, #F4A261 0%, #E76F51 100%);
             box-shadow: 0 10px 30px rgba(231, 111, 81, 0.4);
             transform: translateY(-2px);
         }
-        
+
         .btn-secondary {
             background: linear-gradient(135deg, #2A9D8F 0%, #3AACB8 100%);
             transition: all 0.3s ease;
         }
-        
+
         .btn-secondary:hover {
             background: linear-gradient(135deg, #3AACB8 0%, #2A9D8F 100%);
             box-shadow: 0 10px 30px rgba(42, 157, 143, 0.4);
             transform: translateY(-2px);
         }
-        
+
         /* Card hover effects */
         .card-hover {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         .card-hover:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 25px 50px rgba(0, 59, 92, 0.2);
         }
-        
+
         /* Loading animation for images */
         .img-loading {
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
             background-size: 200% 100%;
             animation: loading 1.5s ease-in-out infinite;
         }
-        
+
         @keyframes loading {
             0% {
                 background-position: 200% 0;
             }
+
             100% {
                 background-position: -200% 0;
             }
         }
-        
+
         /* Mobile menu animation */
         .mobile-menu {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-in-out;
         }
-        
+
         .mobile-menu.active {
             max-height: 500px;
         }
     </style>
-    
+
     {% block extra_css %}{% endblock %}
 </head>
+
 <body class="bg-white text-gray-900 antialiased">
-    
+
     <!-- Navigation -->
     <nav class="bg-white shadow-lg sticky top-0 z-50 border-b-2 border-sc-cyan" id="main-nav">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->
                 <a href="{% url 'core:home' %}" class="flex items-center space-x-3 hover:opacity-90 transition">
-                    <img src="{% load static %}{% static 'images/logo.png' %}" alt="Shine Congo Logo" class="h-16 w-auto">
+                    <img src="{% static 'images/logo.png' %}" alt="Shine Congo Logo"
+                        class="h-16 w-auto">
                 </a>
-                
+
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="{% url 'core:home' %}" class="text-sc-navy hover:text-sc-cyan font-medium transition">Accueil</a>
-                    <a href="{% url 'core:services' %}" class="text-sc-navy hover:text-sc-cyan font-medium transition">Services</a>
-                    <a href="{% url 'careers:list' %}" class="text-sc-navy hover:text-sc-cyan font-medium transition">Carrières</a>
-                    <a href="{% url 'core:about' %}" class="text-sc-navy hover:text-sc-cyan font-medium transition">À Propos</a>
-                    <a href="{% url 'contact:contact' %}" class="text-sc-navy hover:text-sc-cyan font-medium transition">Contact</a>
-                    <a href="{% url 'applications:apply' %}" class="btn-primary text-white px-6 py-2 rounded-full font-semibold">
+                    <a href="{% url 'core:home' %}"
+                        class="text-sc-navy hover:text-sc-cyan font-medium transition">Accueil</a>
+                    <a href="{% url 'core:services' %}"
+                        class="text-sc-navy hover:text-sc-cyan font-medium transition">Services</a>
+                    <a href="{% url 'careers:list' %}"
+                        class="text-sc-navy hover:text-sc-cyan font-medium transition">Carrières</a>
+                    <a href="{% url 'core:about' %}" class="text-sc-navy hover:text-sc-cyan font-medium transition">À
+                        Propos</a>
+                    <a href="{% url 'contact:contact' %}"
+                        class="text-sc-navy hover:text-sc-cyan font-medium transition">Contact</a>
+                    <a href="{% url 'applications:apply' %}"
+                        class="btn-primary text-white px-6 py-2 rounded-full font-semibold">
                         Postuler
                     </a>
                 </div>
-                
+
                 <!-- Mobile Menu Button -->
                 <button class="md:hidden text-sc-navy" id="mobile-menu-btn">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
-            
+
             <!-- Mobile Navigation -->
             <div class="mobile-menu md:hidden" id="mobile-menu">
                 <div class="py-4 space-y-3">
-                    <a href="{% url 'core:home' %}" class="block text-sc-navy hover:text-sc-cyan font-medium py-2">Accueil</a>
-                    <a href="{% url 'core:services' %}" class="block text-sc-navy hover:text-sc-cyan font-medium py-2">Services</a>
-                    <a href="{% url 'careers:list' %}" class="block text-sc-navy hover:text-sc-cyan font-medium py-2">Carrières</a>
-                    <a href="{% url 'core:about' %}" class="block text-sc-navy hover:text-sc-cyan font-medium py-2">À Propos</a>
-                    <a href="{% url 'contact:contact' %}" class="block text-sc-navy hover:text-sc-cyan font-medium py-2">Contact</a>
-                    <a href="{% url 'applications:apply' %}" class="btn-primary text-white px-6 py-3 rounded-full font-semibold inline-block mt-2">
+                    <a href="{% url 'core:home' %}"
+                        class="block text-sc-navy hover:text-sc-cyan font-medium py-2">Accueil</a>
+                    <a href="{% url 'core:services' %}"
+                        class="block text-sc-navy hover:text-sc-cyan font-medium py-2">Services</a>
+                    <a href="{% url 'careers:list' %}"
+                        class="block text-sc-navy hover:text-sc-cyan font-medium py-2">Carrières</a>
+                    <a href="{% url 'core:about' %}" class="block text-sc-navy hover:text-sc-cyan font-medium py-2">À
+                        Propos</a>
+                    <a href="{% url 'contact:contact' %}"
+                        class="block text-sc-navy hover:text-sc-cyan font-medium py-2">Contact</a>
+                    <a href="{% url 'applications:apply' %}"
+                        class="btn-primary text-white px-6 py-3 rounded-full font-semibold inline-block mt-2">
                         Postuler
                     </a>
                 </div>
             </div>
         </div>
     </nav>
-    
+
     <!-- Messages -->
     {% if messages %}
     <div class="container mx-auto px-4 mt-4">
         {% for message in messages %}
-        <div class="{% if message.tags == 'success' %}bg-green-100 border-green-400 text-green-700{% elif message.tags == 'error' %}bg-red-100 border-red-400 text-red-700{% elif message.tags == 'warning' %}bg-yellow-100 border-yellow-400 text-yellow-700{% else %}bg-blue-100 border-blue-400 text-blue-700{% endif %} border-l-4 p-4 mb-4 rounded-r-lg shadow-md" role="alert">
+        <div class="{% if message.tags == 'success' %}bg-green-100 border-green-400 text-green-700{% elif message.tags == 'error' %}bg-red-100 border-red-400 text-red-700{% elif message.tags == 'warning' %}bg-yellow-100 border-yellow-400 text-yellow-700{% else %}bg-blue-100 border-blue-400 text-blue-700{% endif %} border-l-4 p-4 mb-4 rounded-r-lg shadow-md"
+            role="alert">
             <div class="flex items-center">
-                <i class="fas {% if message.tags == 'success' %}fa-check-circle{% elif message.tags == 'error' %}fa-exclamation-circle{% elif message.tags == 'warning' %}fa-exclamation-triangle{% else %}fa-info-circle{% endif %} mr-3 text-xl"></i>
+                <i
+                    class="fas {% if message.tags == 'success' %}fa-check-circle{% elif message.tags == 'error' %}fa-exclamation-circle{% elif message.tags == 'warning' %}fa-exclamation-triangle{% else %}fa-info-circle{% endif %} mr-3 text-xl"></i>
                 <p class="font-medium">{{ message }}</p>
             </div>
         </div>
         {% endfor %}
     </div>
     {% endif %}
-    
+
     <!-- Main Content -->
     <main>
         {% block content %}{% endblock %}
     </main>
-    
+
     <!-- Footer -->
     <footer class="bg-sc-navy text-white mt-20">
         <div class="container mx-auto px-4 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- About -->
                 <div>
-                    <img src="{% load static %}{% static 'images/logo.png' %}" alt="Shine Congo" class="h-16 w-auto mb-4 brightness-0 invert">
+                    <a href="{% url 'core:home' %}" class="inline-block mb-4">
+                        <img src="{% static 'images/logo.png' %}" alt="Shine Congo"
+                            class="h-16 w-auto max-w-full" 
+                            style="background: white; padding: 8px; border-radius: 4px;">
+                    </a>
                     <p class="text-gray-300 text-sm leading-relaxed">
                         Shine Congo - Votre partenaire de confiance pour un lavage auto premium à Kinshasa.
                     </p>
                 </div>
-                
+
                 <!-- Links -->
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-sc-yellow">Liens Rapides</h3>
                     <ul class="space-y-2">
-                        <li><a href="{% url 'core:home' %}" class="text-gray-300 hover:text-sc-cyan transition">Accueil</a></li>
-                        <li><a href="{% url 'core:services' %}" class="text-gray-300 hover:text-sc-cyan transition">Services</a></li>
-                        <li><a href="{% url 'careers:list' %}" class="text-gray-300 hover:text-sc-cyan transition">Carrières</a></li>
-                        <li><a href="{% url 'core:about' %}" class="text-gray-300 hover:text-sc-cyan transition">À Propos</a></li>
+                        <li><a href="{% url 'core:home' %}"
+                                class="text-gray-300 hover:text-sc-cyan transition">Accueil</a></li>
+                        <li><a href="{% url 'core:services' %}"
+                                class="text-gray-300 hover:text-sc-cyan transition">Services</a></li>
+                        <li><a href="{% url 'careers:list' %}"
+                                class="text-gray-300 hover:text-sc-cyan transition">Carrières</a></li>
+                        <li><a href="{% url 'core:about' %}" class="text-gray-300 hover:text-sc-cyan transition">À
+                                Propos</a></li>
                     </ul>
                 </div>
-                
+
                 <!-- Contact -->
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-sc-yellow">Contact</h3>
@@ -255,24 +294,27 @@
                         <li><i class="fas fa-envelope mr-2 text-sc-cyan"></i>contact@shinecongo.com</li>
                     </ul>
                 </div>
-                
+
                 <!-- Social -->
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-sc-yellow">Suivez-nous</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-sc-cyan rounded-full flex items-center justify-center hover:bg-sc-orange transition">
+                        <a href="#"
+                            class="w-10 h-10 bg-sc-cyan rounded-full flex items-center justify-center hover:bg-sc-orange transition">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-sc-cyan rounded-full flex items-center justify-center hover:bg-sc-orange transition">
+                        <a href="#"
+                            class="w-10 h-10 bg-sc-cyan rounded-full flex items-center justify-center hover:bg-sc-orange transition">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-sc-cyan rounded-full flex items-center justify-center hover:bg-sc-orange transition">
+                        <a href="#"
+                            class="w-10 h-10 bg-sc-cyan rounded-full flex items-center justify-center hover:bg-sc-orange transition">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            
+
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
                 <p>&copy; {{ current_year|default:"2024" }} Shine Congo. Tous droits réservés.</p>
                 <div class="mt-2 space-x-4">
@@ -280,20 +322,25 @@
                     <span>•</span>
                     <a href="{% url 'core:terms' %}" class="hover:text-sc-cyan transition">Conditions</a>
                 </div>
+                <div class="mt-3">
+                    <a href="{% url 'admin_panel:dashboard' %}" class="text-gray-500 hover:text-sc-cyan transition text-xs">
+                        <i class="fas fa-cog mr-1"></i>Administration
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
-    
+
     <!-- JavaScript -->
     <script>
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        
+
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('active');
         });
-        
+
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -307,7 +354,7 @@
                 }
             });
         });
-        
+
         // Navbar shadow on scroll
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('main-nav');
@@ -317,7 +364,7 @@
                 nav.classList.remove('shadow-xl');
             }
         });
-        
+
         // Auto-dismiss messages after 5 seconds
         setTimeout(() => {
             const messages = document.querySelectorAll('[role="alert"]');
@@ -328,7 +375,8 @@
             });
         }, 5000);
     </script>
-    
+
     {% block extra_js %}{% endblock %}
 </body>
+
 </html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Admin Panel Shine Congo</title>
+    
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}?v=2">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sc-navy': '#003B5C',
+                        'sc-orange': '#E76F51',
+                        'sc-orange-light': '#F4A261',
+                        'sc-yellow': '#F6BD60',
+                        'sc-cyan': '#2A9D8F',
+                        'sc-cyan-light': '#3AACB8',
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-sc-navy via-sc-navy to-sc-cyan min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+        <!-- Logo and Title -->
+        <div class="text-center mb-8">
+            <div class="inline-block bg-white p-4 rounded-full mb-4 shadow-lg">
+                <img src="{% static 'images/logo.png' %}" alt="Shine Congo" class="h-16 w-auto">
+            </div>
+            <h1 class="text-3xl font-bold text-white mb-2">Admin Panel</h1>
+            <p class="text-gray-200">Shine Congo - Connexion</p>
+        </div>
+        
+        <!-- Login Card -->
+        <div class="bg-white rounded-2xl shadow-2xl p-8">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="mb-4 p-4 rounded-lg {% if message.tags == 'error' %}bg-red-100 text-red-800 border border-red-300{% else %}bg-blue-100 text-blue-800 border border-blue-300{% endif %}">
+                        <div class="flex items-center">
+                            <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-info-circle{% endif %} mr-2"></i>
+                            <span>{{ message }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            {% if form.errors %}
+                <div class="mb-4 p-4 rounded-lg bg-red-100 text-red-800 border border-red-300">
+                    <div class="flex items-start">
+                        <i class="fas fa-exclamation-circle mr-2 mt-1"></i>
+                        <div>
+                            <p class="font-semibold mb-1">Erreur de connexion</p>
+                            {% if form.non_field_errors %}
+                                {% for error in form.non_field_errors %}
+                                    <p class="text-sm">{{ error }}</p>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-sm">Veuillez vérifier vos identifiants.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            
+            <form method="post" action="{% url 'admin_panel:login' %}" class="space-y-6">
+                {% csrf_token %}
+                
+                {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}">
+                {% endif %}
+                
+                <!-- Username Field -->
+                <div>
+                    <label for="id_username" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-user mr-2 text-sc-cyan"></i>Nom d'utilisateur
+                    </label>
+                    <input type="text" 
+                           name="username" 
+                           id="id_username" 
+                           autofocus 
+                           required
+                           class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-sc-cyan transition outline-none"
+                           placeholder="Entrez votre nom d'utilisateur">
+                    {% if form.username.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.username.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Password Field -->
+                <div>
+                    <label for="id_password" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-lock mr-2 text-sc-cyan"></i>Mot de passe
+                    </label>
+                    <div class="relative">
+                        <input type="password" 
+                               name="password" 
+                               id="id_password" 
+                               required
+                               class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-sc-cyan transition outline-none pr-12"
+                               placeholder="Entrez votre mot de passe">
+                        <button type="button" 
+                                onclick="togglePassword()" 
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-sc-cyan transition">
+                            <i id="password-icon" class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    {% if form.password.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.password.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" 
+                        class="w-full bg-gradient-to-r from-sc-cyan to-sc-cyan-light text-white py-3 rounded-lg font-semibold hover:from-sc-cyan-light hover:to-sc-cyan transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    <i class="fas fa-sign-in-alt mr-2"></i>Se connecter
+                </button>
+            </form>
+            
+            <!-- Footer Links -->
+            <div class="mt-6 pt-6 border-t border-gray-200 text-center">
+                <a href="{% url 'core:home' %}" class="text-sm text-gray-600 hover:text-sc-cyan transition">
+                    <i class="fas fa-arrow-left mr-1"></i>Retour au site
+                </a>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <p class="text-center text-white text-sm mt-6 opacity-75">
+            &copy; 2024 Shine Congo. Tous droits réservés.
+        </p>
+    </div>
+    
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('id_password');
+            const passwordIcon = document.getElementById('password-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.classList.remove('fa-eye');
+                passwordIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.classList.remove('fa-eye-slash');
+                passwordIcon.classList.add('fa-eye');
+            }
+        }
+        
+        // Auto-focus on username field
+        document.getElementById('id_username').focus();
+    </script>
+</body>
+</html>
+

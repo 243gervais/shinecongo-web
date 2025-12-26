@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Panel - Shine Congo{% endblock %}</title>
+    
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}?v=2">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sc-navy': '#003B5C',
+                        'sc-orange': '#E76F51',
+                        'sc-orange-light': '#F4A261',
+                        'sc-yellow': '#F6BD60',
+                        'sc-cyan': '#2A9D8F',
+                        'sc-cyan-light': '#3AACB8',
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-gray-50">
+    <!-- Sidebar -->
+    <div class="fixed inset-y-0 left-0 w-64 bg-sc-navy text-white transform transition-transform duration-300 ease-in-out z-50" id="sidebar">
+        <div class="flex flex-col h-full">
+            <!-- Logo -->
+            <div class="p-6 border-b border-gray-700">
+                <a href="{% url 'admin_panel:dashboard' %}" class="flex items-center space-x-3">
+                    <img src="{% static 'images/logo.png' %}" alt="Shine Congo" class="h-10 w-auto bg-white p-1 rounded">
+                    <span class="text-xl font-bold">Admin Panel</span>
+                </a>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="flex-1 p-4 space-y-2">
+                <a href="{% url 'admin_panel:dashboard' %}" 
+                   class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700 transition {% if request.resolver_match.url_name == 'dashboard' %}bg-sc-cyan{% endif %}">
+                    <i class="fas fa-chart-line w-5"></i>
+                    <span>Tableau de bord</span>
+                </a>
+                
+                <a href="{% url 'admin_panel:applications_list' %}" 
+                   class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700 transition {% if 'application' in request.resolver_match.url_name %}bg-sc-cyan{% endif %}">
+                    <i class="fas fa-briefcase w-5"></i>
+                    <span>Candidatures</span>
+                </a>
+                
+                <a href="{% url 'admin_panel:jobs_list' %}" 
+                   class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700 transition {% if 'job' in request.resolver_match.url_name %}bg-sc-cyan{% endif %}">
+                    <i class="fas fa-user-tie w-5"></i>
+                    <span>Postes</span>
+                </a>
+                
+                <a href="{% url 'admin_panel:messages_list' %}" 
+                   class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700 transition {% if 'message' in request.resolver_match.url_name %}bg-sc-cyan{% endif %}">
+                    <i class="fas fa-envelope w-5"></i>
+                    <span>Messages</span>
+                </a>
+            </nav>
+            
+            <!-- User Info -->
+            <div class="p-4 border-t border-gray-700">
+                <div class="flex items-center space-x-3 mb-3">
+                    <div class="w-10 h-10 bg-sc-cyan rounded-full flex items-center justify-center">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium truncate">{{ user.get_full_name|default:user.username }}</p>
+                        <p class="text-xs text-gray-400 truncate">{{ user.email }}</p>
+                    </div>
+                </div>
+                <div class="flex space-x-2">
+                    <a href="{% url 'core:home' %}" class="flex-1 text-center px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm transition">
+                        <i class="fas fa-home mr-1"></i> Site
+                    </a>
+                    <a href="{% url 'admin:index' %}" class="flex-1 text-center px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm transition">
+                        <i class="fas fa-cog mr-1"></i> Django
+                    </a>
+                    <form method="post" action="{% url 'admin_panel:logout' %}" class="flex-1">
+                        {% csrf_token %}
+                        <button type="submit" class="w-full px-3 py-2 bg-red-600 hover:bg-red-700 rounded text-sm transition text-white">
+                            <i class="fas fa-sign-out-alt mr-1"></i> Sortir
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="ml-64">
+        <!-- Top Bar -->
+        <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
+            <div class="px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <button id="sidebar-toggle" class="lg:hidden text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <h1 class="text-2xl font-bold text-sc-navy">{% block page_title %}Admin Panel{% endblock %}</h1>
+                </div>
+                
+                <!-- Messages -->
+                {% if messages %}
+                    <div class="flex items-center space-x-2">
+                        {% for message in messages %}
+                            <div class="px-4 py-2 rounded-lg text-sm font-medium
+                                {% if message.tags == 'success' %}bg-green-100 text-green-800
+                                {% elif message.tags == 'error' %}bg-red-100 text-red-800
+                                {% elif message.tags == 'warning' %}bg-yellow-100 text-yellow-800
+                                {% else %}bg-blue-100 text-blue-800{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </header>
+        
+        <!-- Page Content -->
+        <main class="p-6">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+    
+    <script>
+        // Mobile sidebar toggle
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('-translate-x-full');
+                overlay.classList.toggle('hidden');
+            });
+        }
+        
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            });
+        }
+        
+        // Auto-hide messages after 5 seconds
+        setTimeout(() => {
+            const messageDivs = document.querySelectorAll('[class*="bg-green-100"], [class*="bg-red-100"], [class*="bg-yellow-100"], [class*="bg-blue-100"]');
+            messageDivs.forEach(div => {
+                div.style.transition = 'opacity 0.5s';
+                div.style.opacity = '0';
+                setTimeout(() => div.remove(), 500);
+            });
+        }, 5000);
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
+

@@ -34,13 +34,27 @@
 
                         <div>
                             <label class="block text-sm font-semibold text-sc-navy mb-2">
-                                Email <span class="text-red-500">*</span>
+                                Date de Naissance <span class="text-red-500">*</span>
                             </label>
-                            {{ form.email }}
-                            {% if form.email.errors %}
-                            <p class="text-red-500 text-sm mt-1">{{ form.email.errors.0 }}</p>
+                            {{ form.date_of_birth }}
+                            <p class="text-xs text-gray-500 mt-1">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Format: JJ/MM/AAAA (ex: 15/01/1990) ou en texte (ex: 15 janvier 1990)
+                            </p>
+                            {% if form.date_of_birth.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.date_of_birth.errors.0 }}</p>
                             {% endif %}
                         </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-sc-navy mb-2">
+                            Adresse Physique <span class="text-red-500">*</span>
+                        </label>
+                        {{ form.physical_address }}
+                        {% if form.physical_address.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.physical_address.errors.0 }}</p>
+                        {% endif %}
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-6">
@@ -61,38 +75,6 @@
                             {{ form.city }}
                             {% if form.city.errors %}
                             <p class="text-red-500 text-sm mt-1">{{ form.city.errors.0 }}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold text-sc-navy mb-2">
-                            Poste Souhaité <span class="text-red-500">*</span>
-                        </label>
-                        {{ form.position_applied }}
-                        {% if form.position_applied.errors %}
-                        <p class="text-red-500 text-sm mt-1">{{ form.position_applied.errors.0 }}</p>
-                        {% endif %}
-                    </div>
-
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-semibold text-sc-navy mb-2">
-                                Années d'Expérience <span class="text-red-500">*</span>
-                            </label>
-                            {{ form.years_experience }}
-                            {% if form.years_experience.errors %}
-                            <p class="text-red-500 text-sm mt-1">{{ form.years_experience.errors.0 }}</p>
-                            {% endif %}
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-semibold text-sc-navy mb-2">
-                                Date de Disponibilité
-                            </label>
-                            {{ form.availability_date }}
-                            {% if form.availability_date.errors %}
-                            <p class="text-red-500 text-sm mt-1">{{ form.availability_date.errors.0 }}</p>
                             {% endif %}
                         </div>
                     </div>

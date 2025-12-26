@@ -4,19 +4,24 @@ from django.core.validators import FileExtensionValidator
 
 def cv_upload_path(instance, filename):
     """Chemin de téléchargement pour les CVs"""
-    return f'cvs/{instance.email}/{filename}'
+    # Use full_name instead of email for folder structure
+    # Make the name safe for filesystem
+    safe_name = instance.full_name.replace(' ', '_').replace('/', '_').replace('\\', '_')
+    # Remove any other problematic characters
+    safe_name = ''.join(c for c in safe_name if c.isalnum() or c in ('_', '-'))
+    if not safe_name:
+        safe_name = 'candidate'
+    return f'cvs/{safe_name}/{filename}'
 
 
 class JobApplication(models.Model):
     """Modèle pour les candidatures d'emploi"""
     
     full_name = models.CharField("Nom complet", max_length=200)
-    email = models.EmailField("Email")
+    physical_address = models.TextField("Adresse physique", max_length=500)
     phone = models.CharField("Téléphone", max_length=20)
     city = models.CharField("Ville", max_length=100)
-    position_applied = models.CharField("Poste souhaité", max_length=200)
-    years_experience = models.IntegerField("Années d'expérience", default=0)
-    availability_date = models.DateField("Date de disponibilité", null=True, blank=True)
+    date_of_birth = models.DateField("Date de naissance")
     message = models.TextField("Message / Lettre de motivation", blank=True)
     cv_file = models.FileField(
         "CV (PDF/DOC/DOCX)",
@@ -36,4 +41,5 @@ class JobApplication(models.Model):
         ordering = ['-applied_at']
     
     def __str__(self):
-        return f"{self.full_name} - {self.position_applied}"
+        dob_str = self.date_of_birth.strftime('%d/%m/%Y') if self.date_of_birth else 'N/A'
+        return f"{self.full_name} - {dob_str}"

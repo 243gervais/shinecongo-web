@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'careers',
     'applications',
     'contact',
+    'admin_panel',
 ]
 
 MIDDLEWARE = [
@@ -138,6 +139,10 @@ LANGUAGE_CODE = 'fr-fr'  # French
 TIME_ZONE = 'Africa/Kinshasa'
 USE_I18N = True
 USE_TZ = True
+
+# Login URL for admin panel
+LOGIN_URL = '/admin-panel/login/'
+LOGIN_REDIRECT_URL = '/admin-panel/'
 
 # ============================================================================
 # STATIC FILES (CSS, JavaScript, Images)
