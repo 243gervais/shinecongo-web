@@ -175,7 +175,7 @@ def _write_systemd_service(c, wsgi_module):
         RuntimeDirectory=gunicorn-shinecongo
         RuntimeDirectoryMode=775
         ExecStartPre=/bin/rm -f /run/gunicorn-shinecongo/gunicorn.sock
-        ExecStart=/var/www/shinecongo/venv/bin/gunicorn --access-logfile - --error-logfile - --workers 3 --bind unix:/run/gunicorn-shinecongo/gunicorn.sock <YOUR_WSGI_MODULE>:application
+        ExecStart={VENV_DIR}/bin/gunicorn ... --bind unix:{SOCKET_PATH} {wsgi_module}:application
         Restart=always
         RestartSec=5
 
