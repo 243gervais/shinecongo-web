@@ -137,15 +137,18 @@
             <h3 class="text-lg font-semibold text-sc-navy mb-4">Actions</h3>
             <div class="space-y-3">
                 {% if application.application_type == 'MANUAL' %}
+                <!-- For manual applications: Generate and show PDF CV -->
                 <a href="{% url 'admin_panel:view_cv_pdf' application.pk %}" 
                    target="_blank"
                    class="inline-flex items-center w-full justify-center px-4 py-3 bg-sc-cyan text-white rounded-lg hover:bg-sc-cyan-light transition font-semibold">
-                    <i class="fas fa-file-pdf mr-2"></i>Voir CV
+                    <i class="fas fa-file-pdf mr-2"></i>Voir CV PDF
                 </a>
-                {% elif application.cv_file %}
+                {% elif application.application_type == 'CV_UPLOAD' and application.cv_file %}
+                <!-- For CV upload applications: Show original uploaded file -->
                 <a href="{% url 'admin_panel:download_cv' application.pk %}" 
+                   target="_blank"
                    class="inline-flex items-center w-full justify-center px-4 py-3 bg-sc-cyan text-white rounded-lg hover:bg-sc-cyan-light transition font-semibold">
-                    <i class="fas fa-download mr-2"></i>Télécharger le CV
+                    <i class="fas fa-file-pdf mr-2"></i>Voir CV Original
                 </a>
                 {% else %}
                 <p class="text-gray-500 text-sm">Aucun CV disponible</p>

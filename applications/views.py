@@ -95,28 +95,29 @@ class ApplicationSuccessView(TemplateView):
 
 @staff_member_required
 def view_cv_pdf(request, pk):
-    """View PDF CV for manual applications"""
+    """View PDF CV ONLY for manual applications"""
     application = get_object_or_404(JobApplication, pk=pk)
     
-    # Only generate PDF for manual applications
-    if application.application_type == 'MANUAL':
-        pdf = generate_cv_pdf(application)
-        
-        # Create filename
-        if application.nom and application.prenom:
-            filename = f"CV_{application.prenom}_{application.nom}.pdf"
-        elif application.full_name:
-            filename = f"CV_{application.full_name.replace(' ', '_')}.pdf"
-        else:
-            filename = f"CV_{application.id}.pdf"
-        
-        response = HttpResponse(pdf, content_type='application/pdf')
-        response['Content-Disposition'] = f'inline; filename="{filename}"'
-        return response
-    else:
-        # For CV upload applications, redirect to the uploaded file
+    # ONLY generate PDF for manual applications
+    if application.application_type != 'MANUAL':
+        # For CV upload applications, redirect to view the original uploaded file
         if application.cv_file:
             return redirect(application.cv_file.url)
         else:
             messages.error(request, 'Aucun CV disponible pour cette candidature.')
             return redirect('admin:applications_jobapplication_changelist')
+    
+    # Generate PDF only for manual applications
+    pdf = generate_cv_pdf(application)
+    
+    # Create filename
+    if application.nom and application.prenom:
+        filename = f"CV_{application.prenom}_{application.nom}.pdf"
+    elif application.full_name:
+        filename = f"CV_{application.full_name.replace(' ', '_')}.pdf"
+    else:
+        filename = f"CV_{application.id}.pdf"
+    
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = f'inline; filename="{filename}"'
+    return response

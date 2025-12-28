@@ -162,25 +162,43 @@ def application_detail(request, pk):
 @login_required
 @user_passes_test(is_staff_user)
 def download_cv(request, pk):
-    """Download CV file"""
+    """View original CV file for CV upload applications - shows the file as uploaded"""
     application = get_object_or_404(JobApplication, pk=pk)
     
-    if application.cv_file:
-        try:
-            # Try to get file path (works for local storage)
-            if hasattr(application.cv_file, 'path'):
-                file_path = application.cv_file.path
-                if os.path.exists(file_path):
-                    return FileResponse(
-                        open(file_path, 'rb'),
-                        as_attachment=True,
-                        filename=os.path.basename(file_path)
-                    )
-            # For S3 storage, redirect to the file URL
-            if application.cv_file.url:
-                return redirect(application.cv_file.url)
-        except Exception as e:
-            pass
+    if not application.cv_file:
+        messages.error(request, 'Aucun fichier CV disponible pour cette candidature.')
+        return redirect('admin_panel:application_detail', pk=pk)
+    
+    # For CV upload applications, show the original uploaded file (do not modify)
+    try:
+        # Try to get file path (works for local storage)
+        if hasattr(application.cv_file, 'path'):
+            file_path = application.cv_file.path
+            if os.path.exists(file_path):
+                # Determine content type based on file extension
+                file_ext = os.path.splitext(file_path)[1].lower()
+                content_type_map = {
+                    '.pdf': 'application/pdf',
+                    '.doc': 'application/msword',
+                    '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                }
+                content_type = content_type_map.get(file_ext, 'application/octet-stream')
+                
+                # Open in browser (inline) to view the original file
+                return FileResponse(
+                    open(file_path, 'rb'),
+                    content_type=content_type,
+                    filename=os.path.basename(file_path)
+                )
+        # For S3 storage or cloud storage, redirect to the file URL (original file)
+        if application.cv_file.url:
+            return redirect(application.cv_file.url)
+    except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error accessing CV file: {e}")
+        messages.error(request, 'Erreur lors de l\'accès au fichier CV.')
+        return redirect('admin_panel:application_detail', pk=pk)
     
     messages.error(request, 'Fichier CV non trouvé.')
     return redirect('admin_panel:application_detail', pk=pk)
@@ -189,31 +207,32 @@ def download_cv(request, pk):
 @login_required
 @user_passes_test(is_staff_user)
 def view_cv_pdf(request, pk):
-    """View PDF CV for manual applications"""
+    """View PDF CV ONLY for manual applications"""
     application = get_object_or_404(JobApplication, pk=pk)
     
-    # Generate PDF for manual applications
-    if application.application_type == 'MANUAL':
-        pdf = generate_cv_pdf(application)
-        
-        # Create filename
-        if application.nom and application.prenom:
-            filename = f"CV_{application.prenom}_{application.nom}.pdf"
-        elif application.full_name:
-            filename = f"CV_{application.full_name.replace(' ', '_')}.pdf"
-        else:
-            filename = f"CV_{application.id}.pdf"
-        
-        response = HttpResponse(pdf, content_type='application/pdf')
-        response['Content-Disposition'] = f'inline; filename="{filename}"'
-        return response
-    else:
-        # For CV upload applications, redirect to download
+    # ONLY generate PDF for manual applications
+    if application.application_type != 'MANUAL':
+        # For CV upload applications, redirect to view the original uploaded file
         if application.cv_file:
             return redirect('admin_panel:download_cv', pk=pk)
         else:
             messages.error(request, 'Aucun CV disponible pour cette candidature.')
             return redirect('admin_panel:application_detail', pk=pk)
+    
+    # Generate PDF only for manual applications
+    pdf = generate_cv_pdf(application)
+    
+    # Create filename
+    if application.nom and application.prenom:
+        filename = f"CV_{application.prenom}_{application.nom}.pdf"
+    elif application.full_name:
+        filename = f"CV_{application.full_name.replace(' ', '_')}.pdf"
+    else:
+        filename = f"CV_{application.id}.pdf"
+    
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = f'inline; filename="{filename}"'
+    return response
 
 
 @login_required
