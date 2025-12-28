@@ -11,6 +11,7 @@ urlpatterns = [
     path('applications/', views.applications_list, name='applications_list'),
     path('applications/<int:pk>/', views.application_detail, name='application_detail'),
     path('applications/<int:pk>/download-cv/', views.download_cv, name='download_cv'),
+    path('applications/<int:pk>/voir-cv/', views.view_cv_pdf, name='view_cv_pdf'),
     
     # Jobs
     path('jobs/', views.jobs_list, name='jobs_list'),

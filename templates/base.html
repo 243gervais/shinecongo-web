@@ -290,7 +290,7 @@
                     <h3 class="text-lg font-semibold mb-4 text-sc-yellow">Contact</h3>
                     <ul class="space-y-2 text-gray-300 text-sm">
                         <li><i class="fas fa-map-marker-alt mr-2 text-sc-cyan"></i>Kinshasa, RDC</li>
-                        <li><i class="fas fa-phone mr-2 text-sc-cyan"></i>+243 XXX XXX XXX</li>
+                        <li><i class="fas fa-phone mr-2 text-sc-cyan"></i>+1 6788656568</li>
                         <li><i class="fas fa-envelope mr-2 text-sc-cyan"></i>contact@shinecongo.com</li>
                     </ul>
                 </div>
@@ -316,7 +316,7 @@
             </div>
 
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400 text-sm">
-                <p>&copy; {{ current_year|default:"2024" }} Shine Congo. Tous droits réservés.</p>
+                <p>&copy; {% now "Y" %} Shine Congo. Tous droits réservés.</p>
                 <div class="mt-2 space-x-4">
                     <a href="{% url 'core:privacy' %}" class="hover:text-sc-cyan transition">Confidentialité</a>
                     <span>•</span>

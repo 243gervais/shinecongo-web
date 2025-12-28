@@ -3,126 +3,451 @@
 
 {% block title %}Postuler - Shine Congo Carrières{% endblock %}
 
+{% block extra_css %}
+<style>
+    .form-section {
+        display: none;
+    }
+    .form-section.active {
+        display: block;
+    }
+    .option-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .option-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    .option-card.selected {
+        border-color: #2A9D8F;
+        background-color: #f0fdfa;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 
 <section class="bg-gradient-to-r from-sc-orange to-sc-orange-light text-white py-20">
     <div class="container mx-auto px-4 text-center">
         <h1 class="text-5xl font-bold mb-6">Postuler chez Shine Congo</h1>
         <p class="text-xl max-w-3xl mx-auto">
-            Remplissez le formulaire ci-dessous et envoyez-nous votre CV
+            Choisissez votre méthode de candidature
         </p>
     </div>
 </section>
 
 <section class="py-20">
     <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-            <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
-                <form method="post" enctype="multipart/form-data" class="space-y-6">
-                    {% csrf_token %}
-
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-semibold text-sc-navy mb-2">
-                                Nom Complet <span class="text-red-500">*</span>
-                            </label>
-                            {{ form.full_name }}
-                            {% if form.full_name.errors %}
-                            <p class="text-red-500 text-sm mt-1">{{ form.full_name.errors.0 }}</p>
-                            {% endif %}
+        <div class="max-w-5xl mx-auto">
+            
+            <!-- Option Selection -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-sc-navy mb-6 text-center">Comment souhaitez-vous postuler?</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Manual Option -->
+                    <div class="option-card bg-white border-2 border-gray-300 rounded-2xl p-8 text-center" 
+                         onclick="selectOption('MANUAL')" id="option-manual">
+                        <div class="text-5xl mb-4">
+                            <i class="fas fa-edit text-sc-cyan"></i>
                         </div>
+                        <h3 class="text-2xl font-bold text-sc-navy mb-3">Remplir Manuellement</h3>
+                        <p class="text-gray-600 mb-4">
+                            Remplissez le formulaire directement sur le site. Idéal si vous n'avez pas de CV numérique.
+                        </p>
+                        <div class="hidden" id="manual-selected">
+                            <i class="fas fa-check-circle text-sc-cyan text-2xl"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- CV Upload Option -->
+                    <div class="option-card bg-white border-2 border-gray-300 rounded-2xl p-8 text-center" 
+                         onclick="selectOption('CV_UPLOAD')" id="option-cv">
+                        <div class="text-5xl mb-4">
+                            <i class="fas fa-file-upload text-sc-orange"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-sc-navy mb-3">Télécharger mon CV</h3>
+                        <p class="text-gray-600 mb-4">
+                            Téléchargez votre CV (PDF, DOC, DOCX) et remplissez quelques informations de base.
+                        </p>
+                        <div class="hidden" id="cv-selected">
+                            <i class="fas fa-check-circle text-sc-orange text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                        <div>
-                            <label class="block text-sm font-semibold text-sc-navy mb-2">
-                                Date de Naissance <span class="text-red-500">*</span>
-                            </label>
-                            {{ form.date_of_birth }}
+            <!-- Manual Form Section -->
+            <div id="manual-form" class="form-section">
+                <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+                    <h2 class="text-3xl font-bold text-sc-navy mb-6">Remplir Manuellement</h2>
+                    <form method="post" id="manual-form-submit">
+                        {% csrf_token %}
+                        <input type="hidden" name="application_type" value="MANUAL">
+                        
+                        <!-- Section 1: Informations Personnelles -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-sc-navy mb-4 border-b-2 border-sc-cyan pb-2">
+                                1. Informations Personnelles
+                            </h3>
+                            <div class="grid md:grid-cols-3 gap-6">
+                                <div>
+                                    <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                        Nom <span class="text-red-500">*</span>
+                                    </label>
+                                    {{ manual_form.nom }}
+                                    {% if manual_form.nom.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ manual_form.nom.errors.0 }}</p>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                        Post-nom <span class="text-red-500">*</span>
+                                    </label>
+                                    {{ manual_form.post_nom }}
+                                    {% if manual_form.post_nom.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ manual_form.post_nom.errors.0 }}</p>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                        Prénom <span class="text-red-500">*</span>
+                                    </label>
+                                    {{ manual_form.prenom }}
+                                    {% if manual_form.prenom.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ manual_form.prenom.errors.0 }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                                <div>
+                                    <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                        Date de Naissance <span class="text-red-500">*</span>
+                                    </label>
+                                    {{ manual_form.date_of_birth }}
+                                    <p class="text-xs text-gray-500 mt-1">
+                                        <i class="fas fa-info-circle mr-1"></i>
+                                        Format: JJ/MM/AAAA (ex: 15/01/1990) ou en texte (ex: 15 janvier 1990)
+                                    </p>
+                                    {% if manual_form.date_of_birth.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ manual_form.date_of_birth.errors.0 }}</p>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                        Lieu de Naissance <span class="text-red-500">*</span>
+                                    </label>
+                                    {{ manual_form.lieu_de_naissance }}
+                                    {% if manual_form.lieu_de_naissance.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ manual_form.lieu_de_naissance.errors.0 }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                                <div>
+                                    <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                        Sexe <span class="text-red-500">*</span>
+                                    </label>
+                                    {{ manual_form.sexe }}
+                                    {% if manual_form.sexe.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ manual_form.sexe.errors.0 }}</p>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                        Nationalité <span class="text-red-500">*</span>
+                                    </label>
+                                    {{ manual_form.nationalite }}
+                                    {% if manual_form.nationalite.errors %}
+                                    <p class="text-red-500 text-sm mt-1">{{ manual_form.nationalite.errors.0 }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                    Adresse Physique <span class="text-red-500">*</span>
+                                </label>
+                                {{ manual_form.physical_address }}
+                                {% if manual_form.physical_address.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ manual_form.physical_address.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mt-6">
+                                <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                    Numéro de Téléphone <span class="text-red-500">*</span>
+                                </label>
+                                {{ manual_form.phone }}
+                                {% if manual_form.phone.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ manual_form.phone.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Section 2: Comment avez-vous connu Shine Congo -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-sc-navy mb-4 border-b-2 border-sc-cyan pb-2">
+                                2. Comment avez-vous connu Shine Congo?
+                            </h3>
+                            <div class="mb-4">
+                                <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                    Sélectionnez une option <span class="text-red-500">*</span>
+                                </label>
+                                {{ manual_form.how_heard_about }}
+                                {% if manual_form.how_heard_about.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ manual_form.how_heard_about.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+                            <div id="how-heard-details" class="mt-4">
+                                <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                    Détails <span class="text-red-500">*</span>
+                                </label>
+                                {{ manual_form.how_heard_details }}
+                                <p class="text-xs text-gray-500 mt-1" id="details-placeholder">
+                                    <i class="fas fa-info-circle mr-1"></i>
+                                    <span id="details-hint">Veuillez sélectionner une option ci-dessus</span>
+                                </p>
+                                {% if manual_form.how_heard_details.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ manual_form.how_heard_details.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Section 3: Etude faites -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-sc-navy mb-4 border-b-2 border-sc-cyan pb-2">
+                                3. Études Faites
+                            </h3>
+                            {{ manual_form.education }}
                             <p class="text-xs text-gray-500 mt-1">
                                 <i class="fas fa-info-circle mr-1"></i>
-                                Format: JJ/MM/AAAA (ex: 15/01/1990) ou en texte (ex: 15 janvier 1990)
+                                Exemple: Diplôme d'État en Sciences Commerciales et Gestion (2018-2021) - Institut X, Kinshasa
                             </p>
-                            {% if form.date_of_birth.errors %}
-                            <p class="text-red-500 text-sm mt-1">{{ form.date_of_birth.errors.0 }}</p>
+                            {% if manual_form.education.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ manual_form.education.errors.0 }}</p>
                             {% endif %}
                         </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold text-sc-navy mb-2">
-                            Adresse Physique <span class="text-red-500">*</span>
-                        </label>
-                        {{ form.physical_address }}
-                        {% if form.physical_address.errors %}
-                        <p class="text-red-500 text-sm mt-1">{{ form.physical_address.errors.0 }}</p>
-                        {% endif %}
-                    </div>
-
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-semibold text-sc-navy mb-2">
-                                Téléphone <span class="text-red-500">*</span>
-                            </label>
-                            {{ form.phone }}
-                            {% if form.phone.errors %}
-                            <p class="text-red-500 text-sm mt-1">{{ form.phone.errors.0 }}</p>
+                        
+                        <!-- Section 4: Competences et profil -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-sc-navy mb-4 border-b-2 border-sc-cyan pb-2">
+                                4. Compétences et Profil
+                            </h3>
+                            {{ manual_form.skills }}
+                            <p class="text-xs text-gray-500 mt-1">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Exemple: Maîtrise de Microsoft Office, Bonne communication, Expérience en service client, Capacité à travailler en équipe
+                            </p>
+                            {% if manual_form.skills.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ manual_form.skills.errors.0 }}</p>
                             {% endif %}
                         </div>
-
-                        <div>
-                            <label class="block text-sm font-semibold text-sc-navy mb-2">
-                                Ville <span class="text-red-500">*</span>
-                            </label>
-                            {{ form.city }}
-                            {% if form.city.errors %}
-                            <p class="text-red-500 text-sm mt-1">{{ form.city.errors.0 }}</p>
+                        
+                        <!-- Section 5: Langue parler -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-bold text-sc-navy mb-4 border-b-2 border-sc-cyan pb-2">
+                                5. Langues Parlées
+                            </h3>
+                            {{ manual_form.languages }}
+                            <p class="text-xs text-gray-500 mt-1">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Exemple: Français (courant), Lingala (maternelle), Anglais (notions)
+                            </p>
+                            {% if manual_form.languages.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ manual_form.languages.errors.0 }}</p>
                             {% endif %}
                         </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold text-sc-navy mb-2">
-                            Lettre de Motivation / Message
-                        </label>
-                        {{ form.message }}
-                        {% if form.message.errors %}
-                        <p class="text-red-500 text-sm mt-1">{{ form.message.errors.0 }}</p>
-                        {% endif %}
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-semibold text-sc-navy mb-2">
-                            Votre CV (PDF, DOC, DOCX - Max 5MB) <span class="text-red-500">*</span>
-                        </label>
-                        {{ form.cv_file }}
-                        <p class="text-sm text-gray-500 mt-2">
-                            <i class="fas fa-info-circle mr-1"></i>
-                            Formats acceptés: PDF, DOC, DOCX. Taille maximale: 5MB
-                        </p>
-                        {% if form.cv_file.errors %}
-                        <p class="text-red-500 text-sm mt-1">{{ form.cv_file.errors.0 }}</p>
-                        {% endif %}
-                    </div>
-
-                    <div class="bg-sc-cyan/10 border-l-4 border-sc-cyan p-4 rounded">
-                        <p class="text-sm text-gray-700">
-                            <i class="fas fa-shield-alt text-sc-cyan mr-2"></i>
-                            Vos données personnelles seront traitées de manière confidentielle conformément à notre
-                            <a href="{% url 'core:privacy' %}" class="text-sc-cyan underline">politique de
-                                confidentialité</a>.
-                        </p>
-                    </div>
-
-                    <div class="pt-6">
-                        <button type="submit"
-                            class="w-full btn-primary text-white px-8 py-4 rounded-full font-semibold text-lg">
+                        
+                        <div class="bg-sc-cyan/10 border-l-4 border-sc-cyan p-4 rounded mb-6">
+                            <p class="text-sm text-gray-700">
+                                <i class="fas fa-shield-alt text-sc-cyan mr-2"></i>
+                                Vos données personnelles seront traitées de manière confidentielle conformément à notre
+                                <a href="{% url 'core:privacy' %}" class="text-sc-cyan underline">politique de confidentialité</a>.
+                            </p>
+                        </div>
+                        
+                        <button type="submit" class="w-full btn-primary text-white px-8 py-4 rounded-full font-semibold text-lg">
                             <i class="fas fa-paper-plane mr-2"></i>
                             Envoyer ma Candidature
                         </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- CV Upload Form Section -->
+            <div id="cv-form" class="form-section">
+                <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+                    <h2 class="text-3xl font-bold text-sc-navy mb-6">Télécharger mon CV</h2>
+                    <form method="post" enctype="multipart/form-data" id="cv-form-submit">
+                        {% csrf_token %}
+                        <input type="hidden" name="application_type" value="CV_UPLOAD">
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                    Nom Complet <span class="text-red-500">*</span>
+                                </label>
+                                {{ cv_form.full_name }}
+                                {% if cv_form.full_name.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ cv_form.full_name.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                    Date de Naissance <span class="text-red-500">*</span>
+                                </label>
+                                {{ cv_form.date_of_birth }}
+                                <p class="text-xs text-gray-500 mt-1">
+                                    <i class="fas fa-info-circle mr-1"></i>
+                                    Format: JJ/MM/AAAA (ex: 15/01/1990) ou en texte (ex: 15 janvier 1990)
+                                </p>
+                                {% if cv_form.date_of_birth.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ cv_form.date_of_birth.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                Adresse Physique <span class="text-red-500">*</span>
+                            </label>
+                            {{ cv_form.physical_address }}
+                            {% if cv_form.physical_address.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ cv_form.physical_address.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mt-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                    Téléphone <span class="text-red-500">*</span>
+                                </label>
+                                {{ cv_form.phone }}
+                                {% if cv_form.phone.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ cv_form.phone.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                    Ville <span class="text-red-500">*</span>
+                                </label>
+                                {{ cv_form.city }}
+                                {% if cv_form.city.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ cv_form.city.errors.0 }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                Lettre de Motivation / Message
+                            </label>
+                            {{ cv_form.message }}
+                            {% if cv_form.message.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ cv_form.message.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mt-6">
+                            <label class="block text-sm font-semibold text-sc-navy mb-2">
+                                Votre CV (PDF, DOC, DOCX - Max 5MB) <span class="text-red-500">*</span>
+                            </label>
+                            {{ cv_form.cv_file }}
+                            <p class="text-sm text-gray-500 mt-2">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                Formats acceptés: PDF, DOC, DOCX. Taille maximale: 5MB
+                            </p>
+                            {% if cv_form.cv_file.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ cv_form.cv_file.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="bg-sc-cyan/10 border-l-4 border-sc-cyan p-4 rounded mt-6">
+                            <p class="text-sm text-gray-700">
+                                <i class="fas fa-shield-alt text-sc-cyan mr-2"></i>
+                                Vos données personnelles seront traitées de manière confidentielle conformément à notre
+                                <a href="{% url 'core:privacy' %}" class="text-sc-cyan underline">politique de confidentialité</a>.
+                            </p>
+                        </div>
+                        
+                        <div class="pt-6">
+                            <button type="submit" class="w-full btn-primary text-white px-8 py-4 rounded-full font-semibold text-lg">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Envoyer ma Candidature
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function selectOption(type) {
+        // Remove selected class from all options
+        document.getElementById('option-manual').classList.remove('selected');
+        document.getElementById('option-cv').classList.remove('selected');
+        document.getElementById('manual-selected').classList.add('hidden');
+        document.getElementById('cv-selected').classList.add('hidden');
+        
+        // Hide all forms
+        document.getElementById('manual-form').classList.remove('active');
+        document.getElementById('cv-form').classList.remove('active');
+        
+        // Show selected option and form
+        if (type === 'MANUAL') {
+            document.getElementById('option-manual').classList.add('selected');
+            document.getElementById('manual-selected').classList.remove('hidden');
+            document.getElementById('manual-form').classList.add('active');
+        } else {
+            document.getElementById('option-cv').classList.add('selected');
+            document.getElementById('cv-selected').classList.remove('hidden');
+            document.getElementById('cv-form').classList.add('active');
+        }
+    }
+    
+    // Handle how_heard_about change
+    document.addEventListener('DOMContentLoaded', function() {
+        const howHeardSelect = document.getElementById('id_how_heard_about');
+        const howHeardDetails = document.getElementById('id_how_heard_details');
+        const detailsHint = document.getElementById('details-hint');
+        
+        if (howHeardSelect) {
+            howHeardSelect.addEventListener('change', function() {
+                const value = this.value;
+                const detailsDiv = document.getElementById('how-heard-details');
+                
+                if (value === 'AFFICHE') {
+                    howHeardDetails.placeholder = 'Où avez-vous vu l\'affiche? (ex: Avenue X, Commune Y)';
+                    detailsHint.textContent = 'Indiquez l\'emplacement où vous avez vu l\'affiche';
+                    detailsDiv.style.display = 'block';
+                } else if (value === 'MOTEUR_RECHERCHE') {
+                    howHeardDetails.placeholder = 'Quel moteur de recherche? (ex: Facebook, Google, Instagram)';
+                    detailsHint.textContent = 'Indiquez le moteur de recherche ou la plateforme';
+                    detailsDiv.style.display = 'block';
+                } else if (value === 'PERSONNE') {
+                    howHeardDetails.placeholder = 'Nom de la personne';
+                    detailsHint.textContent = 'Indiquez le nom de la personne qui vous a parlé de Shine Congo';
+                    detailsDiv.style.display = 'block';
+                } else {
+                    detailsDiv.style.display = 'none';
+                }
+            });
+            
+            // Trigger on page load if value exists
+            if (howHeardSelect.value) {
+                howHeardSelect.dispatchEvent(new Event('change'));
+            }
+        }
+    });
+</script>
 {% endblock %}

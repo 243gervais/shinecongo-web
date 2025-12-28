@@ -6,7 +6,12 @@ Production-ready configuration with environment variables.
 import os
 from pathlib import Path
 from decouple import config, Csv
-import dj_database_url
+
+# Optional import for dj_database_url (only needed if DATABASE_URL is set)
+try:
+    import dj_database_url
+except ImportError:
+    dj_database_url = None
 
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -105,10 +110,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # ============================================================================
 
 # Use PostgreSQL in production via DATABASE_URL, SQLite for local dev
-if config('DATABASE_URL', default=None):
+database_url = config('DATABASE_URL', default=None)
+if database_url and dj_database_url:
     DATABASES = {
         'default': dj_database_url.config(
-            default=config('DATABASE_URL'),
+            default=database_url,
             conn_max_age=600
         )
     }

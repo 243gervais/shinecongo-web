@@ -1,5 +1,11 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
+from django.shortcuts import redirect
 from .models import JobRole
+
+
+class RoleExplanationView(TemplateView):
+    """Page d'explication du rôle avant candidature"""
+    template_name = 'careers/role_explanation.html'
 
 
 class CareersListView(ListView):
@@ -10,6 +16,10 @@ class CareersListView(ListView):
     
     def get_queryset(self):
         return JobRole.objects.filter(is_active=True)
+    
+    def get(self, request, *args, **kwargs):
+        # Redirect to role explanation page since we only have one position
+        return redirect('careers:role_explanation')
 
 
 class JobDetailView(DetailView):

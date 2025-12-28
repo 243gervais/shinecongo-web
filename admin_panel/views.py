@@ -6,11 +6,12 @@ from django.contrib import messages
 from django.db.models import Q, Count
 from django.utils import timezone
 from datetime import timedelta
-from django.http import JsonResponse, FileResponse
+from django.http import JsonResponse, FileResponse, HttpResponse
 from django.conf import settings
 import os
 
 from applications.models import JobApplication
+from applications.pdf_utils import generate_cv_pdf
 from careers.models import JobRole
 from contact.models import ContactMessage
 
@@ -183,6 +184,36 @@ def download_cv(request, pk):
     
     messages.error(request, 'Fichier CV non trouvé.')
     return redirect('admin_panel:application_detail', pk=pk)
+
+
+@login_required
+@user_passes_test(is_staff_user)
+def view_cv_pdf(request, pk):
+    """View PDF CV for manual applications"""
+    application = get_object_or_404(JobApplication, pk=pk)
+    
+    # Generate PDF for manual applications
+    if application.application_type == 'MANUAL':
+        pdf = generate_cv_pdf(application)
+        
+        # Create filename
+        if application.nom and application.prenom:
+            filename = f"CV_{application.prenom}_{application.nom}.pdf"
+        elif application.full_name:
+            filename = f"CV_{application.full_name.replace(' ', '_')}.pdf"
+        else:
+            filename = f"CV_{application.id}.pdf"
+        
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = f'inline; filename="{filename}"'
+        return response
+    else:
+        # For CV upload applications, redirect to download
+        if application.cv_file:
+            return redirect('admin_panel:download_cv', pk=pk)
+        else:
+            messages.error(request, 'Aucun CV disponible pour cette candidature.')
+            return redirect('admin_panel:application_detail', pk=pk)
 
 
 @login_required
