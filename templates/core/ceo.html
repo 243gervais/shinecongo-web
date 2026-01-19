@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gervais Mbadu - CEO de Shine Congo{% endblock %}
+
+{% block meta_description %}Découvrez Gervais Mbadu, fondateur et CEO de Shine Congo, une organisation dédiée à l'excellence du lavage automobile à Kinshasa.{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-sc-navy to-sc-cyan text-white py-20">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">Gervais Mbadu</h1>
+        <p class="text-xl max-w-3xl mx-auto">Fondateur & CEO de Shine Congo</p>
+    </div>
+</section>
+
+<!-- CEO Profile Section -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <!-- CEO Photo -->
+                <div class="order-2 md:order-1">
+                    <div class="relative">
+                        <img src="{% static 'images/gervais_mbadu.jpeg' %}" 
+                             alt="Gervais Mbadu - CEO de Shine Congo"
+                             class="w-full rounded-2xl shadow-2xl hover-lift object-cover"
+                             style="max-height: 600px;">
+                        <div class="absolute -bottom-6 -right-6 bg-sc-cyan text-white p-6 rounded-xl shadow-lg hidden md:block">
+                            <div class="text-3xl font-bold">2025</div>
+                            <div class="text-sm opacity-90">Année de fondation</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CEO Information -->
+                <div class="order-1 md:order-2">
+                    <div class="bg-white rounded-2xl shadow-lg p-8">
+                        <h2 class="text-4xl font-bold text-sc-navy mb-6">À Propos du CEO</h2>
+                        <div class="space-y-6 text-gray-700 leading-relaxed">
+                            <p class="text-lg">
+                                <strong class="text-sc-navy">Gervais Mbadu</strong> est le visionnaire derrière Shine Congo, 
+                                une organisation dédiée à révolutionner l'industrie du lavage automobile à Kinshasa, 
+                                République Démocratique du Congo.
+                            </p>
+                            <p>
+                                Avec une passion pour l'excellence et un engagement profond envers le développement 
+                                économique local, Gervais a fondé Shine Congo en 2025 avec une mission claire : 
+                                offrir des services de lavage automobile de classe mondiale tout en créant des opportunités 
+                                d'emploi significatives pour la communauté congolaise.
+                            </p>
+                            <p>
+                                Sous sa direction, Shine Congo s'est rapidement établie comme une référence en matière 
+                                de qualité, d'innovation et de service client dans le secteur du lavage automobile à Kinshasa.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Vision & Mission Section -->
+<section class="py-20">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-sc-navy mb-12 text-center">Vision & Leadership</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Vision Card -->
+                <div class="bg-gradient-to-br from-sc-cyan to-sc-cyan-light text-white rounded-2xl p-8 shadow-lg hover-lift">
+                    <div class="text-5xl mb-4">🎯</div>
+                    <h3 class="text-2xl font-bold mb-4">Vision</h3>
+                    <p class="leading-relaxed">
+                        Transformer Shine Congo en la première entreprise de lavage automobile 
+                        de référence en RDC, reconnue pour son excellence opérationnelle et son 
+                        impact social positif.
+                    </p>
+                </div>
+
+                <!-- Leadership Card -->
+                <div class="bg-gradient-to-br from-sc-orange to-sc-orange-light text-white rounded-2xl p-8 shadow-lg hover-lift">
+                    <div class="text-5xl mb-4">👔</div>
+                    <h3 class="text-2xl font-bold mb-4">Style de Leadership</h3>
+                    <p class="leading-relaxed">
+                        Un leadership axé sur l'innovation, la formation continue et l'autonomisation 
+                        des équipes. Gervais croit fermement en l'investissement dans le capital humain 
+                        comme clé du succès durable.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Values -->
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h3 class="text-3xl font-bold text-sc-navy mb-6 text-center">Valeurs Fondamentales</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">✨</div>
+                        <h4 class="font-bold text-sc-navy mb-2">Excellence</h4>
+                        <p class="text-gray-600 text-sm">Recherche constante de la perfection dans chaque service</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🤝</div>
+                        <h4 class="font-bold text-sc-navy mb-2">Intégrité</h4>
+                        <p class="text-gray-600 text-sm">Transparence et honnêteté dans toutes nos interactions</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🌱</div>
+                        <h4 class="font-bold text-sc-navy mb-2">Innovation</h4>
+                        <p class="text-gray-600 text-sm">Adoption des meilleures technologies et pratiques</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Achievements Section -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold text-sc-navy mb-12 text-center">Réalisations & Impact</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-6 text-center shadow-md hover-lift">
+                    <div class="text-5xl font-bold text-sc-cyan mb-2">100+</div>
+                    <p class="text-gray-600 font-medium">Clients Satisfaits</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center shadow-md hover-lift">
+                    <div class="text-5xl font-bold text-sc-orange mb-2">25+</div>
+                    <p class="text-gray-600 font-medium">Employés Qualifiés</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center shadow-md hover-lift">
+                    <div class="text-5xl font-bold text-sc-yellow mb-2">1</div>
+                    <p class="text-gray-600 font-medium">An d'Expérience</p>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-white rounded-2xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold text-sc-navy mb-4">Impact Communautaire</h3>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Sous la direction de Gervais Mbadu, Shine Congo s'engage activement dans le développement 
+                    économique local en créant des emplois stables et en offrant des opportunités de formation 
+                    professionnelle aux jeunes Congolais.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    L'organisation investit dans l'avenir de ses employés, leur offrant non seulement un emploi, 
+                    mais aussi des compétences transférables et des perspectives de croissance de carrière dans 
+                    l'industrie du service automobile.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-sc-navy to-sc-cyan text-white">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-4xl font-bold mb-6">Rejoignez l'Équipe Shine Congo</h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">
+            Vous souhaitez faire partie d'une organisation qui valorise l'excellence, 
+            l'innovation et le développement personnel ?
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'applications:apply' %}" 
+               class="bg-white text-sc-navy px-8 py-4 rounded-full font-semibold hover:bg-sc-yellow transition hover-lift inline-block">
+                Postuler Maintenant
+            </a>
+            <a href="{% url 'core:about' %}" 
+               class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-sc-navy transition inline-block">
+                En Savoir Plus
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

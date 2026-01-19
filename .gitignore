@@ -37,3 +37,6 @@ Thumbs.db
 # Deployment
 *.pid
 *.sock
+
+# Sensitive local-only files
+important_info.md

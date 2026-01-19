@@ -24,3 +24,8 @@ class PrivacyPolicyView(TemplateView):
 class TermsView(TemplateView):
     """Page conditions d'utilisation"""
     template_name = 'core/terms.html'
+
+
+class CEOView(TemplateView):
+    """Page du CEO - Gervais Mbadu"""
+    template_name = 'core/ceo.html'
