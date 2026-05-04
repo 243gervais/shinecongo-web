@@ -133,6 +133,80 @@
     </div>
 </section>
 
+<!-- Video Preview -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+            <div
+                class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-sc-navy via-sc-cyan to-sc-navy px-8 py-12 md:px-12 md:py-16 shadow-2xl">
+                <div class="absolute inset-0 opacity-10">
+                    <div class="absolute -top-10 -left-6 w-40 h-40 bg-white rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-0 right-0 w-52 h-52 bg-sc-yellow rounded-full blur-3xl"></div>
+                </div>
+
+                <div class="relative z-10 grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
+                    <div class="text-white">
+                        <span
+                            class="inline-flex items-center rounded-full bg-white/15 px-4 py-2 text-sm font-semibold tracking-wide uppercase">
+                            <i class="fab fa-youtube text-sc-yellow mr-2"></i>
+                            Découvrez Shine Congo en vidéo
+                        </span>
+                        <h2 class="text-4xl md:text-5xl font-bold mt-6 mb-4 leading-tight">
+                            Comprenez rapidement qui nous sommes et ce que nous faisons
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-200 leading-relaxed mb-8 max-w-2xl">
+                            Regardez notre vidéo de présentation pour découvrir notre vision, nos services de lavage
+                            auto premium à Kinshasa et l'expérience que nous voulons offrir à chaque client.
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="https://www.youtube.com/@ShineCongo" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center justify-center bg-sc-yellow text-sc-navy px-8 py-4 rounded-full font-semibold text-lg hover:bg-white transition">
+                                <i class="fas fa-play mr-3"></i>
+                                Regarder sur YouTube
+                            </a>
+                            <a href="{% url 'core:services' %}"
+                                class="inline-flex items-center justify-center bg-white/10 border border-white/20 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/20 transition">
+                                <i class="fas fa-car-side mr-3"></i>
+                                Explorer nos services
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="https://www.youtube.com/@ShineCongo" target="_blank" rel="noopener noreferrer"
+                        class="group block">
+                        <div
+                            class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-3xl p-6 shadow-xl hover:-translate-y-1 transition-transform duration-300">
+                            <div
+                                class="aspect-video rounded-2xl bg-gradient-to-br from-sc-orange via-sc-yellow to-white p-[1px]">
+                                <div
+                                    class="h-full w-full rounded-2xl bg-sc-navy/95 flex flex-col items-center justify-center text-center px-6">
+                                    <div
+                                        class="w-20 h-20 rounded-full bg-white text-red-600 flex items-center justify-center shadow-xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                                        <i class="fas fa-play text-3xl ml-1"></i>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-white mb-3">
+                                        Shine Congo en 1 minute
+                                    </h3>
+                                    <p class="text-gray-200 mb-6">
+                                        Une présentation rapide de notre mission, de notre qualité de service et de
+                                        notre engagement à Kinshasa.
+                                    </p>
+                                    <span
+                                        class="inline-flex items-center text-sc-yellow font-semibold group-hover:text-white transition">
+                                        Voir la vidéo
+                                        <i class="fas fa-arrow-right ml-2"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Services Overview -->
 <section id="services" class="py-20 bg-white">
     <div class="container mx-auto px-4">
