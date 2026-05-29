@@ -201,19 +201,6 @@
                                 <p class="text-red-500 text-sm mt-1">{{ manual_form.how_heard_about.errors.0 }}</p>
                                 {% endif %}
                             </div>
-                            <div id="how-heard-details" class="mt-4">
-                                <label class="block text-sm font-semibold text-sc-navy mb-2">
-                                    Détails <span class="text-red-500">*</span>
-                                </label>
-                                {{ manual_form.how_heard_details }}
-                                <p class="text-xs text-gray-500 mt-1" id="details-placeholder">
-                                    <i class="fas fa-info-circle mr-1"></i>
-                                    <span id="details-hint">Veuillez sélectionner une option ci-dessus</span>
-                                </p>
-                                {% if manual_form.how_heard_details.errors %}
-                                <p class="text-red-500 text-sm mt-1">{{ manual_form.how_heard_details.errors.0 }}</p>
-                                {% endif %}
-                            </div>
                         </div>
                         
                         <!-- Section 3: Etude faites -->
@@ -415,39 +402,5 @@
         }
     }
     
-    // Handle how_heard_about change
-    document.addEventListener('DOMContentLoaded', function() {
-        const howHeardSelect = document.getElementById('id_how_heard_about');
-        const howHeardDetails = document.getElementById('id_how_heard_details');
-        const detailsHint = document.getElementById('details-hint');
-        
-        if (howHeardSelect) {
-            howHeardSelect.addEventListener('change', function() {
-                const value = this.value;
-                const detailsDiv = document.getElementById('how-heard-details');
-                
-                if (value === 'AFFICHE') {
-                    howHeardDetails.placeholder = 'Où avez-vous vu l\'affiche? (ex: Avenue X, Commune Y)';
-                    detailsHint.textContent = 'Indiquez l\'emplacement où vous avez vu l\'affiche';
-                    detailsDiv.style.display = 'block';
-                } else if (value === 'MOTEUR_RECHERCHE') {
-                    howHeardDetails.placeholder = 'Quel moteur de recherche? (ex: Facebook, Google, Instagram)';
-                    detailsHint.textContent = 'Indiquez le moteur de recherche ou la plateforme';
-                    detailsDiv.style.display = 'block';
-                } else if (value === 'PERSONNE') {
-                    howHeardDetails.placeholder = 'Nom de la personne';
-                    detailsHint.textContent = 'Indiquez le nom de la personne qui vous a parlé de Shine Congo';
-                    detailsDiv.style.display = 'block';
-                } else {
-                    detailsDiv.style.display = 'none';
-                }
-            });
-            
-            // Trigger on page load if value exists
-            if (howHeardSelect.value) {
-                howHeardSelect.dispatchEvent(new Event('change'));
-            }
-        }
-    });
 </script>
 {% endblock %}
