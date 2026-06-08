@@ -19,7 +19,7 @@ class ManualApplicationForm(forms.ModelForm):
         fields = [
             'nom', 'post_nom', 'prenom', 'date_of_birth', 'lieu_de_naissance',
             'sexe', 'nationalite', 'physical_address', 'phone',
-            'how_heard_about', 'education', 'skills', 'languages'
+            'how_heard_about', 'how_heard_details', 'education', 'skills', 'languages'
         ]
         widgets = {
             'nom': forms.TextInput(attrs={
@@ -61,6 +61,11 @@ class ManualApplicationForm(forms.ModelForm):
             'how_heard_about': forms.Select(attrs={
                 'class': 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-transparent',
                 'id': 'id_how_heard_about'
+            }),
+            'how_heard_details': forms.TextInput(attrs={
+                'class': 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-transparent',
+                'placeholder': 'Précisez...',
+                'id': 'id_how_heard_details'
             }),
             'education': forms.Textarea(attrs={
                 'class': 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sc-cyan focus:border-transparent',
@@ -147,6 +152,24 @@ class ManualApplicationForm(forms.ModelForm):
             raise ValidationError('Veuillez entrer une date de naissance valide.')
         
         return parsed_date
+
+    def clean(self):
+        cleaned_data = super().clean()
+        how_heard_about = cleaned_data.get('how_heard_about')
+        how_heard_details = (cleaned_data.get('how_heard_details') or '').strip()
+        requires_details = {'AFFICHE', 'PERSONNE'}
+
+        if how_heard_about in requires_details and not how_heard_details:
+            raise ValidationError({
+                'how_heard_details': "Veuillez preciser ou vous avez vu l'affiche ou le nom de la personne."
+            })
+
+        if how_heard_about not in requires_details:
+            cleaned_data['how_heard_details'] = ''
+        else:
+            cleaned_data['how_heard_details'] = how_heard_details
+
+        return cleaned_data
     
     def save(self, commit=True):
         instance = super().save(commit=False)

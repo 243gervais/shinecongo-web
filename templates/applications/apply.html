@@ -201,6 +201,18 @@
                                 <p class="text-red-500 text-sm mt-1">{{ manual_form.how_heard_about.errors.0 }}</p>
                                 {% endif %}
                             </div>
+                            <div id="how-heard-details-wrapper" class="hidden">
+                                <label class="block text-sm font-semibold text-sc-navy mb-2" for="id_how_heard_details">
+                                    <span id="how-heard-details-label">Précisez</span> <span class="text-red-500">*</span>
+                                </label>
+                                {{ manual_form.how_heard_details }}
+                                <p class="text-xs text-gray-500 mt-1" id="how-heard-details-hint">
+                                    Indiquez le nom de la personne ou l'endroit où vous avez vu l'affiche.
+                                </p>
+                                {% if manual_form.how_heard_details.errors %}
+                                <p class="text-red-500 text-sm mt-1">{{ manual_form.how_heard_details.errors.0 }}</p>
+                                {% endif %}
+                            </div>
                         </div>
                         
                         <!-- Section 3: Etude faites -->
@@ -401,6 +413,39 @@
             document.getElementById('cv-form').classList.add('active');
         }
     }
-    
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const howHeardSelect = document.getElementById('id_how_heard_about');
+        const howHeardDetails = document.getElementById('id_how_heard_details');
+        const detailsWrapper = document.getElementById('how-heard-details-wrapper');
+        const detailsLabel = document.getElementById('how-heard-details-label');
+        const detailsHint = document.getElementById('how-heard-details-hint');
+
+        if (!howHeardSelect || !howHeardDetails || !detailsWrapper) {
+            return;
+        }
+
+        function updateHowHeardDetails() {
+            const value = howHeardSelect.value;
+
+            if (value === 'PERSONNE') {
+                detailsWrapper.classList.remove('hidden');
+                detailsLabel.textContent = 'Nom de la personne';
+                detailsHint.textContent = 'Indiquez le nom de la personne qui vous a parlé de Shine Congo.';
+                howHeardDetails.placeholder = 'Nom de la personne';
+            } else if (value === 'AFFICHE') {
+                detailsWrapper.classList.remove('hidden');
+                detailsLabel.textContent = "Où avez-vous vu l'affiche ?";
+                detailsHint.textContent = "Indiquez l'endroit où vous avez vu l'affiche.";
+                howHeardDetails.placeholder = "Ex: Rond-point Victoire, Kinshasa";
+            } else {
+                detailsWrapper.classList.add('hidden');
+                howHeardDetails.value = '';
+            }
+        }
+
+        howHeardSelect.addEventListener('change', updateHowHeardDetails);
+        updateHowHeardDetails();
+    });
 </script>
 {% endblock %}
