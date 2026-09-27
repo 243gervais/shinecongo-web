@@ -22,10 +22,10 @@ Shine Congo provides premium, reliable car wash and detailing services in Kinsha
 
 ## Suggested Handles
 
-- Facebook page: `Shine Congo`
-- X: `@ShineCongo`
-- LinkedIn page: `Shine Congo`
-- Instagram: `@iamgervaismb` until an official Shine Congo handle is created
+- Facebook page: https://www.facebook.com/profile.php?id=61594616890568
+- X: https://x.com/Shine_Congo
+- TikTok: https://www.tiktok.com/@shine_congo?lang=en
+- LinkedIn page: https://www.linkedin.com/company/shinecongo/
 
 ## First Post
 
