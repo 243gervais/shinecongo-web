@@ -10,4 +10,5 @@ urlpatterns = [
     path('ceo/', views.CEOView.as_view(), name='ceo'),
     path('confidentialite/', views.PrivacyPolicyView.as_view(), name='privacy'),
     path('conditions/', views.TermsView.as_view(), name='terms'),
+    path('comment-ca-marche/', views.HowItWorksView.as_view(), name='how_it_works'),
 ]

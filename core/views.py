@@ -26,6 +26,11 @@ class TermsView(TemplateView):
     template_name = 'core/terms.html'
 
 
+class HowItWorksView(TemplateView):
+    """Page expliquant le fonctionnement des services"""
+    template_name = 'core/how_it_works.html'
+
+
 class CEOView(TemplateView):
     """Page du CEO - Gervais Mbadu"""
     template_name = 'core/ceo.html'
